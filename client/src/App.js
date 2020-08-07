@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Home from "./Home";
 import Notifications from "./Notifications";
-import Tweet from "./Tweet";
+import Meow from "./Meow";
 import Profile from "./Profile";
 import GlobalStyles from "./GlobalStyles.js";
 import { IconName } from "react-icons/fi";
@@ -23,7 +23,7 @@ function App() {
           <Notifications />
         </Route>
         <Route path="/tweet/:tweetid">
-          <Tweet />
+          <Meow />
         </Route>
         <Route path="/:profileID">
           <Profile />
