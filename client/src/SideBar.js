@@ -70,6 +70,7 @@ const MenuItem = styled.div`
   padding: 10px;
   :hover {
     cursor: pointer;
+
     background-color: ${COLORS.primary};
     border-radius: 20px;
   }

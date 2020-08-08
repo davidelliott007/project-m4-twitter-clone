@@ -3,9 +3,12 @@ import styled from "styled-components";
 import Sidebar from "./SideBar";
 import MeowListItem from "./MeowListItem";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { useParams } from "react-router-dom";
+import { COLORS } from "./constants";
 
 function Profile(props) {
   const currentuserContext = React.useContext(CurrentUserContext);
+  const profileID = useParams().profileID;
 
   const [tweetsFromUser, setTweetsFromUser] = React.useState([]);
   const [avatarImg, setAvatarImg] = React.useState([]);
@@ -19,8 +22,15 @@ function Profile(props) {
   const [numFollowing, setNumFollowing] = React.useState([]);
 
   React.useEffect(() => {
+    console.log(profileID);
+
     async function getMeowsFromUser() {
-      const profile_data = await currentuserContext.getMyProfilePromise();
+      //const profile_data = await currentuserContext.getMyProfilePromise();
+      const profile_data = await currentuserContext.getProfileByHandlePromise(
+        profileID
+      );
+
+      console.log(profile_data);
 
       setAvatarImg(profile_data.profile.avatarSrc);
       setBannerImg(profile_data.profile.bannerSrc);
@@ -56,15 +66,14 @@ function Profile(props) {
             }}
             alt="banner Image"
           />
-
-          <UnderBanner>
-            <TopUserSection>
-              <AvatarImg src={avatarImg} alt="avatar Image" />
-            </TopUserSection>
-          </UnderBanner>
+          <FollowingButton>Following</FollowingButton>
         </TopSection>
-        {displayName}
-        {handle}
+        <AvatarImg src={avatarImg} alt="avatar Image" />
+        <DisplayName>{displayName}</DisplayName>
+        <HandleFollowing>
+          <Handle>@{handle}</Handle>
+          {isFollowingYou && <FollowsYou>Follows You </FollowsYou>}
+        </HandleFollowing>
         {joined}
         {location}
         {numFollowers} Followers
@@ -77,6 +86,27 @@ function Profile(props) {
   );
 }
 
+const FollowsYou = styled.div`
+  border-radius: 20px;
+  background-color: ${COLORS.secondary};
+  padding: 7px;
+  margin-left: 10px;
+  font-size: 12px;
+`;
+const Handle = styled.div`
+  color: grey;
+`;
+
+const HandleFollowing = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const DisplayName = styled.div`
+  font-weight: bold;
+`;
+
 const FollowingButton = styled.button`
   border-radius: 15px;
   background-color: blue;
@@ -84,15 +114,14 @@ const FollowingButton = styled.button`
   color: white;
   width: 150px;
   height: 30px;
-  margin-left: 100px;
+  align-self: flex-end;
+  margin-top: 15px;
 `;
-
-const DisplayName = styled.div``;
 
 const TopSection = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 `;
 
 const UnderBanner = styled.div`
@@ -110,13 +139,18 @@ const TopUserSection = styled.div`
 
 const Banner = styled.div`
   height: 150px;
-  z-index: 1;
 `;
 
 const AvatarImg = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 40px;
+  width: 100px;
+  height: 100px;
+  border: 2px solid white;
+
+  border-radius: 80px;
+  position: absolute;
+  top: 110px;
+  margin-left: 18px;
+  z-index: 5;
 `;
 const Wrapper = styled.div`
   display: flex;

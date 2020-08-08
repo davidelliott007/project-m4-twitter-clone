@@ -57,6 +57,25 @@ export const CurrentUserContextProvider = ({ children }) => {
     return myPromise;
   };
 
+  const getProfileByHandlePromise = (handle) => {
+    let myPromise = new Promise((resolve, reject) => {
+      const apiUrl = "http://localhost:3000/api/" + handle + "/profile";
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(
+            "getProfileByHandlePromise returned this is your data",
+            data
+          );
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+    return myPromise;
+  };
+
   const pullUser = () => {
     const apiUrl = "http://localhost:3000/api/me/profile";
     fetch(apiUrl)
@@ -84,6 +103,7 @@ export const CurrentUserContextProvider = ({ children }) => {
         getMyProfilePromise,
         getMeowByIDPromise,
         getFeedByHandlePromise,
+        getProfileByHandlePromise,
         pullUserAndReturn,
         pullUser,
         currentUser,
