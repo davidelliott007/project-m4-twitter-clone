@@ -38,6 +38,25 @@ export const CurrentUserContextProvider = ({ children }) => {
     return myPromise;
   };
 
+  const getFeedByHandlePromise = (feedhandle) => {
+    let myPromise = new Promise((resolve, reject) => {
+      const apiUrl = "http://localhost:3000/api/" + feedhandle + "/feed";
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(
+            "getFeedByHandlePromise returned this is your data",
+            data
+          );
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+    return myPromise;
+  };
+
   const pullUser = () => {
     const apiUrl = "http://localhost:3000/api/me/profile";
     fetch(apiUrl)
@@ -64,6 +83,7 @@ export const CurrentUserContextProvider = ({ children }) => {
       value={{
         getMyProfilePromise,
         getMeowByIDPromise,
+        getFeedByHandlePromise,
         pullUserAndReturn,
         pullUser,
         currentUser,
