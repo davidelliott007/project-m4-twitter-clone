@@ -11,7 +11,7 @@ import {
 
 import Sidebar from "./SideBar";
 
-function MeowListItem(props) {
+function MeowListItem({ tweetByID }) {
   const itemId = useParams().tweetid;
 
   const [tweetID, settweetID] = React.useState(itemId);
@@ -22,7 +22,22 @@ function MeowListItem(props) {
   const [tweetStatus, setTweetStatus] = React.useState();
   const [tweetTimeStamp, setTweetTimeStamp] = React.useState();
 
+  console.log("item");
+  console.log({ tweetByID });
   React.useEffect(() => {
+    setAuthor(tweetByID.author.displayName);
+    setHandle(tweetByID.author.handle);
+    if (tweetByID.media[0] !== undefined) {
+      settweetImg(tweetByID.media[0].url);
+    }
+    setTweetStatus(tweetByID.status);
+    setAuthorImg(tweetByID.author.avatarSrc);
+    let date = new Date(tweetByID.timestamp);
+    let date_string = date.toDateString();
+    let time_string = date.toLocaleTimeString("en-US");
+    let full = time_string + " - " + date_string;
+    setTweetTimeStamp(full);
+
     // const apiUrl = "http://localhost:3000/api/me/profile";
     // fetch(apiUrl)
     //   .then((response) => response.json())
@@ -46,15 +61,10 @@ function MeowListItem(props) {
     //     let full = time_string + " - " + date_string;
     //     setTweetTimeStamp(full);
     //   });
-  }, []);
+  }, [tweetByID]);
 
   return (
     <TweetSection>
-      <NavigationArrow>
-        <FiArrowLeft></FiArrowLeft> <MeowTitle>Meow</MeowTitle>
-      </NavigationArrow>
-      <Seperator />
-
       <Author>
         <AuthorImg src={authorImg} alt="authorImg Image" />
         <AuthorNameHandle>
@@ -154,6 +164,7 @@ const TweetSection = styled.div`
   border: 1px solid #bbb;
   border-radius: 2px;
   padding: 15px;
+  margin-bottom: 25px;
 `;
 const DateSection = styled.div`
   color: gray;

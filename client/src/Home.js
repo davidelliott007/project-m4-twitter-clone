@@ -4,10 +4,11 @@ import Sidebar from "./SideBar";
 import { CurrentUserContext } from "./CurrentUserContext";
 
 function Home() {
-  const { currentuserContext } = React.useContext(CurrentUserContext);
+  const currentuserContext = React.useContext(CurrentUserContext);
 
   const [currentUser, setCurrentUser] = React.useState("loading user");
   React.useEffect(() => {
+    console.log(currentuserContext);
     const apiUrl = "http://localhost:3000/api/me/profile";
     fetch(apiUrl)
       .then((response) => response.json())

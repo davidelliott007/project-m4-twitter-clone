@@ -6,6 +6,38 @@ export const CurrentUserContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [status, setStatus] = React.useState(null);
 
+  const getMyProfilePromise = () => {
+    let myPromise = new Promise((resolve, reject) => {
+      const apiUrl = "http://localhost:3000/api/me/profile";
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Promise returned this is your data", data);
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+    return myPromise;
+  };
+
+  const getMeowByIDPromise = (itemId) => {
+    let myPromise = new Promise((resolve, reject) => {
+      const apiUrl = "http://localhost:3000/api/tweet/" + itemId;
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("getMeowByIDPromise returned this is your data", data);
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+    return myPromise;
+  };
+
   const pullUser = () => {
     const apiUrl = "http://localhost:3000/api/me/profile";
     fetch(apiUrl)
@@ -29,7 +61,14 @@ export const CurrentUserContextProvider = ({ children }) => {
 
   return (
     <CurrentUserContext.Provider
-      value={{ pullUserAndReturn, pullUser, currentUser, status }}
+      value={{
+        getMyProfilePromise,
+        getMeowByIDPromise,
+        pullUserAndReturn,
+        pullUser,
+        currentUser,
+        status,
+      }}
     >
       {children}
     </CurrentUserContext.Provider>

@@ -8,10 +8,13 @@ import {
   FiHeart,
   FiUpload,
 } from "react-icons/fi";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 import Sidebar from "./SideBar";
 
 function Meow(props) {
+  const currentuserContext = React.useContext(CurrentUserContext);
+
   const itemId = useParams().tweetid;
 
   const [tweetID, settweetID] = React.useState(itemId);
@@ -23,26 +26,46 @@ function Meow(props) {
   const [tweetTimeStamp, setTweetTimeStamp] = React.useState();
 
   React.useEffect(() => {
-    const apiUrl = "http://localhost:3000/api/tweet/" + itemId;
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("got tweet data");
-        console.log(data.tweet.media);
+    async function getMeowIDSync() {
+      const data = await currentuserContext.getMeowByIDPromise(itemId);
+      console.log("getMeowIDSync data is");
+      console.log(data);
+      setAuthor(data.tweet.author.displayName);
+      setHandle(data.tweet.author.handle);
 
-        setAuthor(data.tweet.author.displayName);
-        setHandle(data.tweet.author.handle);
+      settweetImg(data.tweet.media[0].url);
+      setTweetStatus(data.tweet.status);
+      setAuthorImg(data.tweet.author.avatarSrc);
 
-        settweetImg(data.tweet.media[0].url);
-        setTweetStatus(data.tweet.status);
-        setAuthorImg(data.tweet.author.avatarSrc);
+      let date = new Date(data.tweet.timestamp);
+      let date_string = date.toDateString();
+      let time_string = date.toLocaleTimeString("en-US");
+      let full = time_string + " - " + date_string;
+      setTweetTimeStamp(full);
+    }
 
-        let date = new Date(data.tweet.timestamp);
-        let date_string = date.toDateString();
-        let time_string = date.toLocaleTimeString("en-US");
-        let full = time_string + " - " + date_string;
-        setTweetTimeStamp(full);
-      });
+    getMeowIDSync();
+
+    // const apiUrl = "http://localhost:3000/api/tweet/" + itemId;
+    // fetch(apiUrl)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("got tweet data");
+    //     console.log(data.tweet.media);
+
+    //     setAuthor(data.tweet.author.displayName);
+    //     setHandle(data.tweet.author.handle);
+
+    //     settweetImg(data.tweet.media[0].url);
+    //     setTweetStatus(data.tweet.status);
+    //     setAuthorImg(data.tweet.author.avatarSrc);
+
+    //     let date = new Date(data.tweet.timestamp);
+    //     let date_string = date.toDateString();
+    //     let time_string = date.toLocaleTimeString("en-US");
+    //     let full = time_string + " - " + date_string;
+    //     setTweetTimeStamp(full);
+    //   });
   }, []);
 
   return (

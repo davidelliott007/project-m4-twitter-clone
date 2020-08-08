@@ -12,8 +12,10 @@ function Profile(props) {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.tweetsById);
         console.log(data);
-        return data.profile.handle;
+
+        setTweetsFromUser(data.tweetsById);
       });
   }
   function getCurrentUser() {
@@ -26,7 +28,7 @@ function Profile(props) {
       })
       .then((handle) => {
         getFeed(handle);
-        //console.log(handle);
+        console.log(handle);
       });
   }
 
@@ -40,8 +42,9 @@ function Profile(props) {
     <Wrapper>
       <Sidebar></Sidebar>
       <MainSection>
-        what
-        {tweetsFromUser.map(<MeowListItem></MeowListItem>)}
+        {Object.values(tweetsFromUser).map((element) => {
+          return <MeowListItem tweetByID={element}></MeowListItem>;
+        })}
       </MainSection>
     </Wrapper>
   );
