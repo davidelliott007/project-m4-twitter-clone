@@ -21,7 +21,7 @@ function Sidebar(props) {
 
       <MenuItem>
         <FiUser></FiUser>
-        <StyledLink activeClassName="active" to="/dummyid">
+        <StyledLink activeClassName="active" to="/treasurymog">
           Profile
         </StyledLink>
       </MenuItem>

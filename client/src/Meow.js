@@ -45,27 +45,6 @@ function Meow(props) {
     }
 
     getMeowIDSync();
-
-    // const apiUrl = "http://localhost:3000/api/tweet/" + itemId;
-    // fetch(apiUrl)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("got tweet data");
-    //     console.log(data.tweet.media);
-
-    //     setAuthor(data.tweet.author.displayName);
-    //     setHandle(data.tweet.author.handle);
-
-    //     settweetImg(data.tweet.media[0].url);
-    //     setTweetStatus(data.tweet.status);
-    //     setAuthorImg(data.tweet.author.avatarSrc);
-
-    //     let date = new Date(data.tweet.timestamp);
-    //     let date_string = date.toDateString();
-    //     let time_string = date.toLocaleTimeString("en-US");
-    //     let full = time_string + " - " + date_string;
-    //     setTweetTimeStamp(full);
-    //   });
   }, []);
 
   return (

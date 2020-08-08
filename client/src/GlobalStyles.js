@@ -20,6 +20,7 @@ const GlobalStyles = createGlobalStyle`
     a {
         color: ${COLORS.primary};
     }
+    
 `;
 
 export default GlobalStyles;

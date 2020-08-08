@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react";
-
 export const CurrentUserContext = createContext();
 
 export const CurrentUserContextProvider = ({ children }) => {
@@ -75,6 +74,27 @@ export const CurrentUserContextProvider = ({ children }) => {
     });
     return myPromise;
   };
+  const putLikeTweetByID = (tweetId, isLiked) => {
+    let myPromise = new Promise((resolve, reject) => {
+      const likedata = { like: !isLiked };
+      const apiUrl = "http://localhost:3000/api/tweet/" + tweetId + "/like";
+      fetch(apiUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(likedata),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+    return myPromise;
+  };
 
   const pullUser = () => {
     const apiUrl = "http://localhost:3000/api/me/profile";
@@ -104,6 +124,7 @@ export const CurrentUserContextProvider = ({ children }) => {
         getMeowByIDPromise,
         getFeedByHandlePromise,
         getProfileByHandlePromise,
+        putLikeTweetByID,
         pullUserAndReturn,
         pullUser,
         currentUser,
