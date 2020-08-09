@@ -16,21 +16,45 @@ function MeowListItem({ tweetByID }) {
   const currentuserContext = React.useContext(CurrentUserContext);
 
   function toggleLiked(e) {
-    console.log(tweetByID.id);
-    console.log(tweetByID);
-
-    async function getMeowIDSync() {
+    async function changeTweetLiked() {
       const data = await currentuserContext.putLikeTweetByID(
         tweetByID.id,
         isLiked
       );
       if (data.success) {
-        setIsLiked(!isLiked);
+        if (isLiked === true) {
+          setNumLikes(numLikes - 1);
+          setIsLiked(false);
+        }
+        if (isLiked === false) {
+          setNumLikes(numLikes + 1);
+          setIsLiked(true);
+        }
       }
     }
-    getMeowIDSync();
+    changeTweetLiked();
+  }
 
-    console.log(e.target);
+  function toggleReTweeted(e) {
+    async function changeReTweeted() {
+      const data = await currentuserContext.putRetweetByID(
+        tweetByID.id,
+        isRetweeted
+      );
+      console.log(data);
+
+      if (data.success) {
+        if (isRetweeted === true) {
+          setNumRetweets(numRetweets - 1);
+          setIsRetweeted(false);
+        }
+        if (isRetweeted === false) {
+          setNumRetweets(numRetweets + 1);
+          setIsRetweeted(true);
+        }
+      }
+    }
+    changeReTweeted();
   }
 
   const [author, setAuthor] = React.useState();
@@ -40,6 +64,10 @@ function MeowListItem({ tweetByID }) {
   const [tweetStatus, setTweetStatus] = React.useState();
   const [tweetTimeStamp, setTweetTimeStamp] = React.useState();
   const [isLiked, setIsLiked] = React.useState();
+  const [isRetweeted, setIsRetweeted] = React.useState();
+
+  const [numLikes, setNumLikes] = React.useState();
+  const [numRetweets, setNumRetweets] = React.useState();
 
   React.useEffect(() => {
     setAuthor(tweetByID.author.displayName);
@@ -55,9 +83,15 @@ function MeowListItem({ tweetByID }) {
     let full = time_string + " - " + date_string;
     setTweetTimeStamp(full);
     setIsLiked(tweetByID.isLiked);
+    setIsRetweeted(tweetByID.isRetweeted);
+
+    setNumLikes(tweetByID.numLikes);
+    setNumRetweets(tweetByID.numRetweets);
 
     console.log(tweetByID);
-  }, [tweetByID]);
+    console.log(isLiked);
+    console.log(tweetByID.isLiked);
+  }, []);
 
   return (
     <TweetSection>
@@ -69,18 +103,19 @@ function MeowListItem({ tweetByID }) {
         </AuthorNameHandle>
       </Author>
       <TweetStatus>{tweetStatus}</TweetStatus>
-      <TweetImg src={tweetImg} alt="Tweet Image" />
+      {tweetImg ? <TweetImg src={tweetImg} alt="Tweet Image" /> : ""}
+
       <DateSection>{tweetTimeStamp}</DateSection>
       <Seperator />
       <TweetButtons>
         <MeowButton>
           <CustomFiMessageCircle />
         </MeowButton>
-        <MeowButton>
-          <FiRepeat />
+        <MeowButton onClick={toggleReTweeted}>
+          {isRetweeted ? <HighlightedFiRepeat /> : <FiRepeat />} {numRetweets}
         </MeowButton>
         <MeowButton onClick={toggleLiked}>
-          {isLiked ? <FiHeart /> : <FilledFiHeart />}
+          {isLiked ? <FilledFiHeart /> : <FiHeart />} {numLikes}
         </MeowButton>
         <MeowButton>
           <FiUpload />
@@ -104,6 +139,12 @@ const FilledFiHeart = styled(FiHeart)`
 height: 20px; */
   fill: red;
   color: red;
+`;
+
+const HighlightedFiRepeat = styled(FiRepeat)`
+  /* width: 20px;
+height: 20px; */
+  color: ${COLORS.primary};
 `;
 
 const MeowButton = styled.button`

@@ -25,15 +25,14 @@ function Profile(props) {
   const [isBeingFollowedByYou, setIsBeingFollowedByYou] = React.useState();
 
   React.useEffect(() => {
-    console.log(profileID);
+    // console.log(profileID);
 
     async function getMeowsFromUser() {
-      //const profile_data = await currentuserContext.getMyProfilePromise();
       const profile_data = await currentuserContext.getProfileByHandlePromise(
         profileID
       );
 
-      console.log(profile_data);
+      // console.log(profile_data);
 
       setAvatarImg(profile_data.profile.avatarSrc);
       setBannerImg(profile_data.profile.bannerSrc);
@@ -51,7 +50,7 @@ function Profile(props) {
       setNumFollowing(profile_data.profile.numFollowing);
       setBio(profile_data.profile.bio);
       setIsBeingFollowedByYou(profile_data.profile.isBeingFollowedByYou);
-      console.log(profile_data);
+      // console.log(profile_data);
       const feed = await currentuserContext.getFeedByHandlePromise(
         profile_data.profile.handle
       );

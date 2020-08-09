@@ -96,6 +96,28 @@ export const CurrentUserContextProvider = ({ children }) => {
     return myPromise;
   };
 
+  const putRetweetByID = (tweetId, isRetweeted) => {
+    let myPromise = new Promise((resolve, reject) => {
+      const likedata = { retweet: !isRetweeted };
+      const apiUrl = "http://localhost:3000/api/tweet/" + tweetId + "/retweet";
+      fetch(apiUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(likedata),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+    return myPromise;
+  };
+
   const pullUser = () => {
     const apiUrl = "http://localhost:3000/api/me/profile";
     fetch(apiUrl)
@@ -125,6 +147,7 @@ export const CurrentUserContextProvider = ({ children }) => {
         getFeedByHandlePromise,
         getProfileByHandlePromise,
         putLikeTweetByID,
+        putRetweetByID,
         pullUserAndReturn,
         pullUser,
         currentUser,

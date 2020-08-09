@@ -7,9 +7,16 @@ import MeowListItem from "./MeowListItem";
 function Home() {
   const currentuserContext = React.useContext(CurrentUserContext);
 
-  const [currentUser, setCurrentUser] = React.useState("loading user");
-
   const [tweetsFromUser, setTweetsFromUser] = React.useState([]);
+
+  function handleMeowPost(event) {
+    console.log("posted)");
+    console.log(event.target.value);
+  }
+
+  function handleDraftMeow(event) {
+    console.log(event.target.value);
+  }
 
   React.useEffect(() => {
     async function getMeowsFromUser() {
@@ -20,21 +27,15 @@ function Home() {
       setTweetsFromUser(feed.tweetsById);
     }
     getMeowsFromUser();
-
-    // console.log(currentuserContext);
-    // const apiUrl = "http://localhost:3000/api/me/profile";
-    // fetch(apiUrl)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setCurrentUser(data.profile.handle);
-    //   });
   });
 
-  let loading = "loading";
   return (
     <Wrapper>
       <Sidebar></Sidebar>
       <MainSection>
+        <MeowComposer>
+          <form onSubmit={handleMeowPost} onChnage={handleDraftMeow}></form>
+        </MeowComposer>
         {Object.values(tweetsFromUser).map((element) => {
           return <MeowListItem tweetByID={element}></MeowListItem>;
         })}
@@ -42,6 +43,8 @@ function Home() {
     </Wrapper>
   );
 }
+
+const MeowComposer = styled.div``;
 
 const Wrapper = styled.div`
   display: flex;
