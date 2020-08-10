@@ -4,4 +4,5 @@ export const COLORS = {
   secondary: "rgba(232, 233, 240, 1)",
   lightText: "rgba(97, 99, 107, 1)",
   darkText: "rgba(68, 68, 68, 1)",
+  inputBG: "rgba(97, 99, 107, 0.08)",
 };

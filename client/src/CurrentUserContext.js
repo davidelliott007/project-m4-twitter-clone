@@ -4,6 +4,7 @@ export const CurrentUserContext = createContext();
 export const CurrentUserContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [status, setStatus] = React.useState(null);
+  let maxCharCount = 280;
 
   const getMyProfilePromise = () => {
     let myPromise = new Promise((resolve, reject) => {
@@ -11,7 +12,7 @@ export const CurrentUserContextProvider = ({ children }) => {
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-          console.log("Promise returned this is your data", data);
+          console.log("getMyProfilePromise returned this is your data", data);
           resolve(data);
         })
         .catch((error) => {
@@ -150,6 +151,7 @@ export const CurrentUserContextProvider = ({ children }) => {
         putRetweetByID,
         pullUserAndReturn,
         pullUser,
+        maxCharCount,
         currentUser,
         status,
       }}
