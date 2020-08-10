@@ -12,7 +12,7 @@ import { COLORS } from "./constants";
 import Sidebar from "./SideBar";
 import { CurrentUserContext } from "./CurrentUserContext";
 
-function MeowListItem({ tweetByID }) {
+function MeowListItem({ tweetByID, authorCurrentUser }) {
   const currentuserContext = React.useContext(CurrentUserContext);
 
   function toggleLiked(e) {
@@ -70,6 +70,7 @@ function MeowListItem({ tweetByID }) {
   const [numRetweets, setNumRetweets] = React.useState();
 
   React.useEffect(() => {
+    console.log(authorCurrentUser);
     setAuthor(tweetByID.author.displayName);
     setHandle(tweetByID.author.handle);
     if (tweetByID.media[0] !== undefined) {

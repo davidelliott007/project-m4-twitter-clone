@@ -4,6 +4,7 @@ export const CurrentUserContext = createContext();
 export const CurrentUserContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [status, setStatus] = React.useState(null);
+  let profileObject;
   let maxCharCount = 280;
 
   const getMyProfilePromise = () => {
@@ -13,6 +14,8 @@ export const CurrentUserContextProvider = ({ children }) => {
         .then((response) => response.json())
         .then((data) => {
           console.log("getMyProfilePromise returned this is your data", data);
+          profileObject = data;
+
           resolve(data);
         })
         .catch((error) => {
@@ -127,7 +130,7 @@ export const CurrentUserContextProvider = ({ children }) => {
     return myPromise;
   };
 
-  const postTweet = (postText) => {
+  const postTweet = (postText, lastTweet) => {
     let myPromise = new Promise((resolve, reject) => {
       const statusText = { status: postText };
       const apiUrl = "http://localhost:3000/api/tweet/";
@@ -140,6 +143,9 @@ export const CurrentUserContextProvider = ({ children }) => {
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log("lastTweet");
+
+          console.log(lastTweet);
           resolve(data);
         })
         .catch((error) => {

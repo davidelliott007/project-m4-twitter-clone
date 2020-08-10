@@ -12,12 +12,13 @@ function Home() {
   const [authorImg, setAuthorImg] = React.useState();
   const [inputCharCount, setInputCharCount] = React.useState();
   const [textfieldValue, setTextfieldValue] = React.useState();
+  const [authorCurrentUser, setauthorCurrentUser] = React.useState();
 
   let maxCharCount = currentuserContext.maxCharCount;
   let profile_data;
   function handleMeowPost(event) {
-    console.log("posted)");
-    console.log(event.target.value);
+    // console.log("posted)");
+    // console.log(event.target.value);
   }
 
   function reloadMeows() {
@@ -30,7 +31,10 @@ function Home() {
         profile_data.profile.handle
       );
 
-      setTweetsFromUser(feed.tweetsById);
+      let new_object = { ...feed.tweetsById, ...tweetsFromUser };
+      console.log(new_object);
+
+      setTweetsFromUser(new_object);
     }
     reloadMeowsAsynch();
   }
@@ -45,12 +49,30 @@ function Home() {
 
     async function postTweet() {
       let posted_value = textfieldValue;
+      let last_tweet = tweetsFromUser[tweetsFromUser.length - 1];
       const postedTweetConfirmation = await currentuserContext.postTweet(
-        textfieldValue
+        textfieldValue,
+        last_tweet
       );
       console.log(postedTweetConfirmation);
       if (postedTweetConfirmation.tweet.status === posted_value) {
-        reloadMeows();
+        console.log("postedTweetConfirmation");
+        console.log(postedTweetConfirmation);
+        console.log("last_tweet");
+        console.log(last_tweet);
+        last_tweet.retweetFrom = {};
+        let mushed_tweet = { ...last_tweet, ...postedTweetConfirmation.tweet };
+
+        let new_object = { ...mushed_tweet, ...tweetsFromUser };
+        console.log("new_object");
+
+        console.log(new_object);
+
+        console.log("mushed_tweet");
+
+        console.log(mushed_tweet);
+
+        setTweetsFromUser(new_object);
       }
     }
 
@@ -74,6 +96,8 @@ function Home() {
       profile_data = await currentuserContext.getMyProfilePromise();
       console.log("profile data is ");
       console.log(profile_data);
+
+      setauthorCurrentUser(profile_data.profile.author);
 
       setAuthorImg(profile_data.profile.avatarSrc);
 
