@@ -11,29 +11,69 @@ function Home() {
   const [tweetsFromUser, setTweetsFromUser] = React.useState([]);
   const [authorImg, setAuthorImg] = React.useState();
   const [inputCharCount, setInputCharCount] = React.useState();
-
-  let textfieldValue;
+  const [textfieldValue, setTextfieldValue] = React.useState();
 
   let maxCharCount = currentuserContext.maxCharCount;
-
+  let profile_data;
   function handleMeowPost(event) {
     console.log("posted)");
     console.log(event.target.value);
   }
 
+  function reloadMeows() {
+    async function reloadMeowsAsynch() {
+      profile_data = await currentuserContext.getMyProfilePromise();
+
+      // console.log("profile data is ");
+      // console.log(profile_data);
+      const feed = await currentuserContext.getFeedByHandlePromise(
+        profile_data.profile.handle
+      );
+
+      setTweetsFromUser(feed.tweetsById);
+    }
+    reloadMeowsAsynch();
+  }
+
   function handleDraftMeow(event) {
     setInputCharCount(maxCharCount - event.target.value.length);
+    setTextfieldValue(event.target.value);
+    console.log(textfieldValue);
   }
   function inputClick(event) {
+    console.log(textfieldValue);
+
+    async function postTweet() {
+      let posted_value = textfieldValue;
+      const postedTweetConfirmation = await currentuserContext.postTweet(
+        textfieldValue
+      );
+      console.log(postedTweetConfirmation);
+      if (postedTweetConfirmation.tweet.status === posted_value) {
+        reloadMeows();
+      }
+    }
+
+    postTweet();
     console.log(event.target.value);
   }
 
+  function clearText(event) {
+    setTextfieldValue("");
+  }
+
   React.useEffect(() => {
+    setTextfieldValue("What's meowing?");
+
     async function getMeowsFromUser() {
       maxCharCount = currentuserContext.maxCharCount;
 
       setInputCharCount(maxCharCount);
-      const profile_data = await currentuserContext.getMyProfilePromise();
+
+      // TODO: question for TCs - why doesn't profile_data update from insbide an asynch function?
+      profile_data = await currentuserContext.getMyProfilePromise();
+      console.log("profile data is ");
+      console.log(profile_data);
 
       setAuthorImg(profile_data.profile.avatarSrc);
 
@@ -57,7 +97,10 @@ function Home() {
               type="text"
               value={textfieldValue}
               onChange={handleDraftMeow}
-            ></MeowComposerInput>
+              onClick={clearText}
+            >
+              {textfieldValue}
+            </MeowComposerInput>
           </AuthorAndIput>
           <CharCountAndButton>
             <RemainingChars>{inputCharCount}</RemainingChars>
@@ -85,6 +128,7 @@ const MeowComposerInput = styled.textarea`
   border: none;
   border-radius: 3px;
   background-color: ${COLORS.inputBG};
+  color: ${COLORS.lightText};
   margin-left: 20px;
   flex-grow: 3;
   text-align: top;
@@ -93,6 +137,7 @@ const MeowComposerInput = styled.textarea`
   :focus {
     outline: 0;
     background-color: ${COLORS.secondary};
+    color: black;
   }
 `;
 
@@ -108,6 +153,12 @@ const MeowButton = styled.button`
   width: 80px;
   height: 30px;
   margin-left: 10px;
+  :hover {
+    cursor: pointer;
+
+    background-color: ${COLORS.primary};
+    border-radius: 20px;
+  }
 `;
 
 const CharCountAndButton = styled.div`

@@ -54,7 +54,7 @@ function Profile(props) {
       const feed = await currentuserContext.getFeedByHandlePromise(
         profile_data.profile.handle
       );
-      setTweetsFromUser(feed.tweetsById);
+      setTweetsFromUser(feed);
     }
 
     getMeowsFromUser();

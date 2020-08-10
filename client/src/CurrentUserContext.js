@@ -48,6 +48,14 @@ export const CurrentUserContextProvider = ({ children }) => {
             "getFeedByHandlePromise returned this is your data",
             data
           );
+
+          let sorted_tweets = Object.values(data.tweetsById).sort((a, b) =>
+            a.timestamp > b.timestamp ? -1 : b.timestamp > a.timestamp ? 1 : 0
+          );
+          console.log("sorted_tweets ", sorted_tweets);
+          data.tweetsById = {};
+          data.tweetsById = sorted_tweets;
+
           resolve(data);
         })
         .catch((error) => {
@@ -119,6 +127,28 @@ export const CurrentUserContextProvider = ({ children }) => {
     return myPromise;
   };
 
+  const postTweet = (postText) => {
+    let myPromise = new Promise((resolve, reject) => {
+      const statusText = { status: postText };
+      const apiUrl = "http://localhost:3000/api/tweet/";
+      fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(statusText),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+    return myPromise;
+  };
+
   const pullUser = () => {
     const apiUrl = "http://localhost:3000/api/me/profile";
     fetch(apiUrl)
@@ -151,6 +181,7 @@ export const CurrentUserContextProvider = ({ children }) => {
         putRetweetByID,
         pullUserAndReturn,
         pullUser,
+        postTweet,
         maxCharCount,
         currentUser,
         status,
