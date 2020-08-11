@@ -13,9 +13,9 @@ function Home() {
   const [inputCharCount, setInputCharCount] = React.useState();
   const [textfieldValue, setTextfieldValue] = React.useState();
   const [authorCurrentUser, setauthorCurrentUser] = React.useState();
+  const [profile_data, setProfile_data] = React.useState();
 
   let maxCharCount = currentuserContext.maxCharCount;
-  let profile_data;
   function handleMeowPost(event) {
     // console.log("posted)");
     // console.log(event.target.value);
@@ -52,30 +52,34 @@ function Home() {
       let last_tweet = tweetsFromUser[tweetsFromUser.length - 1];
       const postedTweetConfirmation = await currentuserContext.postTweet(
         textfieldValue,
-        last_tweet
+        last_tweet,
+        profile_data
       );
-      console.log(postedTweetConfirmation);
-      if (postedTweetConfirmation.tweet.status === posted_value) {
-        console.log("postedTweetConfirmation");
-        console.log(postedTweetConfirmation);
-        console.log("last_tweet");
-        console.log(last_tweet);
-        last_tweet.retweetFrom = {};
-        let mushed_tweet = { ...last_tweet, ...postedTweetConfirmation.tweet };
 
-        let new_object = { ...mushed_tweet, ...tweetsFromUser };
-        console.log("new_object");
+      const feed = await currentuserContext.getFeedByHandlePromise(
+        profile_data.profile.handle
+      );
+      // tweetsFromUser, setTweetsFromUser;
+      // tweetsFromUser;
+      // feed.tweetsById[0];
+      console.log("new feed");
+      console.log(feed);
 
-        console.log(new_object);
+      //setTweetsFromUser({});
+      setTweetsFromUser(feed.tweetsById);
 
-        console.log("mushed_tweet");
+      // console.log("postedTweetConfirmation");
+      // console.log(postedTweetConfirmation);
 
-        console.log(mushed_tweet);
+      // // ok so we basically have to build a valid tweet from
+      // let mushed_tweets = { ...postedTweetConfirmation, ...tweetsFromUser };
 
-        setTweetsFromUser(new_object);
-      }
+      // console.log("mushed_tweets");
+
+      // console.log(mushed_tweets);
+
+      // setTweetsFromUser(mushed_tweets);
     }
-
     postTweet();
     console.log(event.target.value);
   }
@@ -89,20 +93,21 @@ function Home() {
 
     async function getMeowsFromUser() {
       maxCharCount = currentuserContext.maxCharCount;
-
       setInputCharCount(maxCharCount);
 
       // TODO: question for TCs - why doesn't profile_data update from insbide an asynch function?
-      profile_data = await currentuserContext.getMyProfilePromise();
-      console.log("profile data is ");
-      console.log(profile_data);
+      let local_profile_data = await currentuserContext.getMyProfilePromise();
 
-      setauthorCurrentUser(profile_data.profile.author);
+      setProfile_data(local_profile_data);
+      // console.log("profile data is ");
+      // console.log(profile_data);
 
-      setAuthorImg(profile_data.profile.avatarSrc);
+      // setauthorCurrentUser(profile_data.profile.author);
+
+      // setAuthorImg(profile_data.profile.avatarSrc);
 
       const feed = await currentuserContext.getFeedByHandlePromise(
-        profile_data.profile.handle
+        local_profile_data.profile.handle
       );
       setTweetsFromUser(feed.tweetsById);
     }

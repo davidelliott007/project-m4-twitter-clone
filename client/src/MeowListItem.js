@@ -70,6 +70,8 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
   const [numRetweets, setNumRetweets] = React.useState();
 
   React.useEffect(() => {
+    console.log(tweetByID);
+
     console.log(authorCurrentUser);
     setAuthor(tweetByID.author.displayName);
     setHandle(tweetByID.author.handle);
