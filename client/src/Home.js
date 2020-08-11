@@ -109,6 +109,7 @@ function Home() {
       const feed = await currentuserContext.getFeedByHandlePromise(
         local_profile_data.profile.handle
       );
+      // TODO going to make the change from object to array here, to see if that helps with refresh
       setTweetsFromUser(feed.tweetsById);
     }
     getMeowsFromUser();
