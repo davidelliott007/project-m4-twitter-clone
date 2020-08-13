@@ -12,32 +12,10 @@ function Home() {
   const [authorImg, setAuthorImg] = React.useState();
   const [inputCharCount, setInputCharCount] = React.useState();
   const [textfieldValue, setTextfieldValue] = React.useState();
-  const [authorCurrentUser, setauthorCurrentUser] = React.useState();
   const [profile_data, setProfile_data] = React.useState();
 
   let maxCharCount = currentuserContext.maxCharCount;
-  function handleMeowPost(event) {
-    // console.log("posted)");
-    // console.log(event.target.value);
-  }
 
-  function reloadMeows() {
-    async function reloadMeowsAsynch() {
-      profile_data = await currentuserContext.getMyProfilePromise();
-
-      // console.log("profile data is ");
-      // console.log(profile_data);
-      const feed = await currentuserContext.getFeedByHandlePromise(
-        profile_data.profile.handle
-      );
-
-      let new_object = { ...feed.tweetsById, ...tweetsFromUser };
-      console.log(new_object);
-
-      setTweetsFromUser(new_object);
-    }
-    reloadMeowsAsynch();
-  }
 
   function handleDraftMeow(event) {
     setInputCharCount(maxCharCount - event.target.value.length);
@@ -48,7 +26,6 @@ function Home() {
     console.log(textfieldValue);
 
     async function postTweet() {
-      let posted_value = textfieldValue;
       let last_tweet = tweetsFromUser[tweetsFromUser.length - 1];
       const postedTweetConfirmation = await currentuserContext.postTweet(
         textfieldValue,
@@ -62,16 +39,19 @@ function Home() {
       // tweetsFromUser, setTweetsFromUser;
       // tweetsFromUser;
       // feed.tweetsById[0];
-      console.log("new feed");
-      console.log(feed);
+
+      console.log(feed.tweetsById[0].id);
+      console.log(postedTweetConfirmation)
+      // if feed.tweetsById[0]
+      if (feed.tweetsById[0].id === postedTweetConfirmation.tweet.id) {
+        setTweetsFromUser(feed.tweetsById);
+
+      }
 
       //setTweetsFromUser({});
-      setTweetsFromUser(feed.tweetsById);
-
-      // console.log("postedTweetConfirmation");
-      // console.log(postedTweetConfirmation);
 
       // // ok so we basically have to build a valid tweet from
+
       // let mushed_tweets = { ...postedTweetConfirmation, ...tweetsFromUser };
 
       // console.log("mushed_tweets");
@@ -81,7 +61,6 @@ function Home() {
       // setTweetsFromUser(mushed_tweets);
     }
     postTweet();
-    console.log(event.target.value);
   }
 
   function clearText(event) {
@@ -104,7 +83,7 @@ function Home() {
 
       // setauthorCurrentUser(profile_data.profile.author);
 
-      // setAuthorImg(profile_data.profile.avatarSrc);
+      setAuthorImg(local_profile_data.profile.avatarSrc);
 
       const feed = await currentuserContext.getFeedByHandlePromise(
         local_profile_data.profile.handle
@@ -138,7 +117,7 @@ function Home() {
           </CharCountAndButton>
         </MeowComposer>
         {Object.values(tweetsFromUser).map((element) => {
-          return <MeowListItem tweetByID={element}></MeowListItem>;
+          return <MeowListItem tweetByID={element} key={element.id}></MeowListItem>;
         })}
       </MainSection>
     </Wrapper>

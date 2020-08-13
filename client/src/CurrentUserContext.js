@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext } from "react";
 export const CurrentUserContext = createContext();
 
 export const CurrentUserContextProvider = ({ children }) => {
@@ -58,6 +58,7 @@ export const CurrentUserContextProvider = ({ children }) => {
           console.log("sorted_tweets ", sorted_tweets);
           data.tweetsById = {};
           data.tweetsById = sorted_tweets;
+
 
           resolve(data);
         })
@@ -145,31 +146,31 @@ export const CurrentUserContextProvider = ({ children }) => {
         .then((data) => {
           //let getFeedByHandlePromise
 
-          console.log("------------------");
+          // console.log("------------------");
 
-          console.log("profileData");
+          // console.log("profileData");
 
-          console.log(profileData);
+          // console.log(profileData);
 
-          let feed = getFeedByHandlePromise(profileData.profile.handle);
-          console.log(feed);
+          // let feed = getFeedByHandlePromise(profileData.profile.handle);
+          // console.log(feed);
 
-          var new_tweet = lastTweet;
+          // var new_tweet = lastTweet;
 
-          new_tweet.numLikes = 0;
-          new_tweet.numRetweets = 0;
-          new_tweet.retweetFrom = {};
-          new_tweet.status = data.tweet.status;
-          new_tweet.id = data.tweet.id;
-          new_tweet.timestamp = data.tweet.timestamp;
-          new_tweet.media = data.tweet.media;
+          // new_tweet.numLikes = 0;
+          // new_tweet.numRetweets = 0;
+          // new_tweet.retweetFrom = {};
+          // new_tweet.status = data.tweet.status;
+          // new_tweet.id = data.tweet.id;
+          // new_tweet.timestamp = data.tweet.timestamp;
+          // new_tweet.media = data.tweet.media;
 
-          console.log("data");
+          // console.log("data");
 
-          console.log(data);
-          console.log("------------------");
+          // console.log(data);
+          // console.log("------------------");
 
-          resolve(new_tweet);
+          resolve(data);
         })
         .catch((error) => {
           reject(error);

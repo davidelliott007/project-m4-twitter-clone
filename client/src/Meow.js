@@ -17,7 +17,6 @@ function Meow(props) {
 
   const itemId = useParams().tweetid;
 
-  const [tweetID, settweetID] = React.useState(itemId);
   const [author, setAuthor] = React.useState();
   const [authorImg, setAuthorImg] = React.useState();
   const [handle, setHandle] = React.useState();
