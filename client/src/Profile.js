@@ -54,7 +54,8 @@ function Profile(props) {
       const feed = await currentuserContext.getFeedByHandlePromise(
         profile_data.profile.handle
       );
-      setTweetsFromUser(feed);
+      setTweetsFromUser(feed.tweetsById);
+
     }
 
     getMeowsFromUser();
@@ -242,19 +243,6 @@ const TopSection = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;
-`;
-
-const UnderBanner = styled.div`
-  position: absolute;
-  top: 110px;
-  z-index: 5;
-`;
-
-const TopUserSection = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 20px;
 `;
 
 const Banner = styled.div`

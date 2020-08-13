@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from "./catlogo.svg";
 import { COLORS } from "./constants";
 
@@ -43,7 +43,7 @@ function Sidebar(props) {
     </Wrapper>
   );
 }
-const StyledLink = styled(Link)`
+const StyledLink = styled(NavLink)`
   color: black;
   font-weight: bold;
   padding-left: 10px;

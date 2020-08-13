@@ -1,15 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
 import {
-  FiArrowLeft,
   FiMessageCircle,
   FiRepeat,
   FiHeart,
   FiUpload,
 } from "react-icons/fi";
 import { COLORS } from "./constants";
-import Sidebar from "./SideBar";
 import { CurrentUserContext } from "./CurrentUserContext";
 
 function MeowListItem({ tweetByID, authorCurrentUser }) {
@@ -72,7 +69,6 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
   React.useEffect(() => {
     console.log(tweetByID);
 
-    console.log(authorCurrentUser);
     setAuthor(tweetByID.author.displayName);
     setHandle(tweetByID.author.handle);
     if (tweetByID.media[0] !== undefined) {
@@ -91,9 +87,8 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
     setNumLikes(tweetByID.numLikes);
     setNumRetweets(tweetByID.numRetweets);
 
-    console.log(tweetByID);
-    console.log(isLiked);
-    console.log(tweetByID.isLiked);
+    // console.log(isLiked);
+    // console.log(tweetByID.isLiked);
   }, []);
 
   return (
