@@ -1,7 +1,7 @@
-const data = require('../data');
+const data = require("../data");
 
 // HARDCODED CURRENT USER.
-const CURRENT_USER_HANDLE = 'treasurymog';
+const CURRENT_USER_HANDLE = "treasurymog";
 
 const MAX_DELAY = 2000;
 const FAILURE_ODDS = 0.05;
@@ -27,14 +27,14 @@ const simulateProblems = (res, data) => {
   }, delay);
 };
 
-const getUser = handle => {
+const getUser = (handle) => {
   return data.users[handle.toLowerCase()];
 };
-const getUserProfile = handle => {
+const getUserProfile = (handle) => {
   const user = getUser(handle);
 
   if (!user) {
-    throw new Error('user-not-found');
+    throw new Error("user-not-found");
   }
 
   const currentUser = data.users[CURRENT_USER_HANDLE];
@@ -56,7 +56,7 @@ const getUserProfile = handle => {
   return mutableUser;
 };
 
-const resolveRetweet = tweet => {
+const resolveRetweet = (tweet) => {
   if (!tweet.retweetOf) {
     return tweet;
   }
@@ -73,8 +73,15 @@ const resolveRetweet = tweet => {
   };
 };
 
-const denormalizeTweet = tweet => {
+const denormalizeTweet = (tweet) => {
   const tweetCopy = { ...tweet };
+
+  console.log("1==========++++++____---__+");
+
+  console.log(CURRENT_USER_HANDLE);
+  console.log(tweetCopy);
+  console.log(tweet);
+  console.log("2==========++++++____---__+");
 
   delete tweetCopy.authorHandle;
 
@@ -82,6 +89,12 @@ const denormalizeTweet = tweet => {
 
   delete tweetCopy.likedBy;
   delete tweetCopy.retweetedBy;
+  console.log("3==========++++++____---__+");
+
+  console.log(CURRENT_USER_HANDLE);
+  console.log(tweetCopy);
+  console.log(tweet);
+  console.log("4==========++++++____---__+");
 
   tweetCopy.isLiked = tweet.likedBy.includes(CURRENT_USER_HANDLE);
   tweetCopy.isRetweeted = tweet.retweetedBy.includes(CURRENT_USER_HANDLE);
@@ -91,9 +104,17 @@ const denormalizeTweet = tweet => {
   return tweetCopy;
 };
 
-const getTweetsFromUser = userId => {
+const getTweetsFromUser = (userId) => {
+  console.log("1iiiiiiii");
+
+  console.log("getTweetsFromUser");
+  console.log(Object.values(data.tweets));
+  console.log("2iiiiiiii");
+  let debug_value = console.log;
   return Object.values(data.tweets)
-    .filter(tweet => tweet.authorHandle.toLowerCase() === userId.toLowerCase())
+    .filter(
+      (tweet) => tweet.authorHandle.toLowerCase() === userId.toLowerCase()
+    )
     .map(resolveRetweet)
     .map(denormalizeTweet);
 };
@@ -116,12 +137,12 @@ const duplicateTweetReducer = (acc, tweet, index, allTweets) => {
   return [...acc, tweet];
 };
 
-const getTweetsForUser = userId => {
+const getTweetsForUser = (userId) => {
   const user = data.users[userId];
 
   return Object.values(data.tweets)
     .filter(
-      tweet =>
+      (tweet) =>
         user.followingIds.includes(tweet.authorHandle.toLowerCase()) ||
         tweet.authorHandle.toLowerCase() === CURRENT_USER_HANDLE.toLowerCase()
     )

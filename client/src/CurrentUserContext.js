@@ -59,7 +59,6 @@ export const CurrentUserContextProvider = ({ children }) => {
           data.tweetsById = {};
           data.tweetsById = sorted_tweets;
 
-
           resolve(data);
         })
         .catch((error) => {

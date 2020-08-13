@@ -8,8 +8,6 @@ import Meow from "./Meow";
 import Profile from "./Profile";
 import GlobalStyles from "./GlobalStyles.js";
 
-
-LIKING DOESN'T WORK
 function App() {
   return (
     <BrowserRouter>
