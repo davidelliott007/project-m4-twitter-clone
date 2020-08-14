@@ -7,4 +7,5 @@ export const COLORS = {
   inputBG: "rgba(97, 99, 107, 0.08)",
   yellowText: " rgba(191, 191, 63, 1)",
   redText: " rgba(191, 63, 63, 1)",
+  meowButtonFade: "rgba(205, 223, 228, 1)",
 };

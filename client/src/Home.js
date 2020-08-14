@@ -61,7 +61,10 @@ function Home() {
 
       // setTweetsFromUser(mushed_tweets);
     }
-    postTweet();
+
+    if (inputCharCount > 0) {
+      postTweet();
+    }
   }
 
   function clearText(event) {
@@ -126,7 +129,11 @@ function Home() {
               {inputCharCount}
             </RemainingChars>
 
-            <MeowButton onClick={inputClick}>Meow!</MeowButton>
+            {inputCharCount > 0 ? (
+              <MeowButton onClick={inputClick}>Meow!</MeowButton>
+            ) : (
+              <MeowButtonPassive>No Meow!</MeowButtonPassive>
+            )}
           </CharCountAndButton>
         </MeowComposer>
         {Object.values(tweetsFromUser).map((element) => {
@@ -189,6 +196,16 @@ const MeowButton = styled.button`
     background-color: ${COLORS.primary};
     border-radius: 20px;
   }
+`;
+
+const MeowButtonPassive = styled.button`
+  border-radius: 15px;
+  background-color: COLORS.meowButtonFade;
+  border-color: transparent;
+  color: grey;
+  width: 80px;
+  height: 30px;
+  margin-left: 10px;
 `;
 
 const CharCountAndButton = styled.div`
