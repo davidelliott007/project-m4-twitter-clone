@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { FiMessageCircle, FiRepeat, FiHeart, FiUpload } from "react-icons/fi";
 import { COLORS } from "./constants";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { useHistory } from "react-router-dom";
 
 function MeowListItem({ tweetByID, authorCurrentUser }) {
   const currentuserContext = React.useContext(CurrentUserContext);
+  let history = useHistory();
 
   function toggleLiked(e) {
     async function changeTweetLiked() {
@@ -50,6 +52,10 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
     }
     // retweet iis a stretch goal
     //changeReTweeted();
+  }
+
+  function handleTweetClicked(e) {
+    history.push(`/tweet/${tweetByID.id}`);
   }
 
   const [author, setAuthor] = React.useState();
@@ -100,15 +106,15 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
   }, []);
 
   return (
-    <div>
+    <div tabIndex="0" aria-label="View Tweet" aria-required="true">
       {isARetweet ? (
         <RetweetedBy>
-          <FiRepeat></FiRepeat> Retweeted by {tweetByID.retweetFrom.displayName}
+          <FiRepeat></FiRepeat> Remeowed {tweetByID.retweetFrom.displayName}
         </RetweetedBy>
       ) : (
         ""
       )}
-      <TweetSection>
+      <TweetSection onClick={handleTweetClicked}>
         <Author>
           <AuthorImg src={authorImg} alt="authorImg Image" />
           <AuthorNameHandle>
@@ -140,6 +146,15 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
   );
 }
 
+const TweetSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  padding: 15px;
+  margin-bottom: 25px;
+`;
+
 const RetweetedBy = styled.div`
   font-style: Italic;
   color: ${COLORS.lightText};
@@ -170,6 +185,13 @@ height: 20px; */
 const MeowButton = styled.button`
   border-color: transparent;
   background-color: transparent;
+
+  //TODO put in background hover state and focus state that is a round bg as well as cool like animations
+
+  :focus {
+    color: ${COLORS.primary};
+    border-color: transparent;
+  }
 
   :hover {
     cursor: pointer;
@@ -250,14 +272,6 @@ const TweetStatus = styled.div`
   padding-bottom: 5px;
 `;
 
-const TweetSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #bbb;
-  border-radius: 2px;
-  padding: 15px;
-  margin-bottom: 25px;
-`;
 const DateSection = styled.div`
   color: gray;
   font-size: 13px;

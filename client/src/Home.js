@@ -16,8 +16,11 @@ function Home() {
 
   let maxCharCount = currentuserContext.maxCharCount;
 
+  let yellowText;
+  let redText;
   function handleDraftMeow(event) {
     setInputCharCount(maxCharCount - event.target.value.length);
+
     setTextfieldValue(event.target.value);
     console.log(textfieldValue);
   }
@@ -110,7 +113,18 @@ function Home() {
             </MeowComposerInput>
           </AuthorAndIput>
           <CharCountAndButton>
-            <RemainingChars>{inputCharCount}</RemainingChars>
+            <RemainingChars
+              style={{
+                color:
+                  inputCharCount <= 0
+                    ? `${COLORS.redText}`
+                    : inputCharCount <= 55
+                    ? `${COLORS.yellowText}`
+                    : `${COLORS.lightText}`,
+              }}
+            >
+              {inputCharCount}
+            </RemainingChars>
 
             <MeowButton onClick={inputClick}>Meow!</MeowButton>
           </CharCountAndButton>
@@ -151,8 +165,14 @@ const MeowComposerInput = styled.textarea`
   }
 `;
 
-const RemainingChars = styled.div`
-  color: ${COLORS.lightText};
+const RemainingChars = styled.div``;
+
+const RemainingCharsYellow = styled.div`
+  color: yellow;
+`;
+
+const RemainingCharsRed = styled.div`
+  color: red;
 `;
 
 const MeowButton = styled.button`
