@@ -16,7 +16,6 @@ function Home() {
 
   let maxCharCount = currentuserContext.maxCharCount;
 
-
   function handleDraftMeow(event) {
     setInputCharCount(maxCharCount - event.target.value.length);
     setTextfieldValue(event.target.value);
@@ -41,11 +40,10 @@ function Home() {
       // feed.tweetsById[0];
 
       console.log(feed.tweetsById[0].id);
-      console.log(postedTweetConfirmation)
+      console.log(postedTweetConfirmation);
       // if feed.tweetsById[0]
       if (feed.tweetsById[0].id === postedTweetConfirmation.tweet.id) {
         setTweetsFromUser(feed.tweetsById);
-
       }
 
       //setTweetsFromUser({});
@@ -113,11 +111,14 @@ function Home() {
           </AuthorAndIput>
           <CharCountAndButton>
             <RemainingChars>{inputCharCount}</RemainingChars>
+
             <MeowButton onClick={inputClick}>Meow!</MeowButton>
           </CharCountAndButton>
         </MeowComposer>
         {Object.values(tweetsFromUser).map((element) => {
-          return <MeowListItem tweetByID={element} key={element.id}></MeowListItem>;
+          return (
+            <MeowListItem tweetByID={element} key={element.id}></MeowListItem>
+          );
         })}
       </MainSection>
     </Wrapper>

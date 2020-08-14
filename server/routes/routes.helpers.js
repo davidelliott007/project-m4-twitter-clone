@@ -109,8 +109,14 @@ const getTweetsFromUser = (userId) => {
 
   console.log("getTweetsFromUser");
   console.log(Object.values(data.tweets));
+  let debug_value = Object.values(data.tweets).filter(
+    (tweet) => tweet.authorHandle.toLowerCase() === userId.toLowerCase()
+  );
   console.log("2iiiiiiii");
-  let debug_value = console.log;
+
+  console.log(debug_value);
+  console.log("2iiiiiiii");
+
   return Object.values(data.tweets)
     .filter(
       (tweet) => tweet.authorHandle.toLowerCase() === userId.toLowerCase()

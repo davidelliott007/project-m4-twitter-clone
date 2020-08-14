@@ -1,5 +1,5 @@
-1iiiiiiii
-getTweetsFromUser
+
+2iiiiiiii
 [
   {
     id: '1209791721099411456r1',
@@ -21,161 +21,317 @@ getTweetsFromUser
     media: [ [Object] ]
   },
   {
-    id: '1209791721099411456',
-    authorHandle: 'diplomog',
-    timestamp: '2019-12-26T14:38:00+00:00',
-    sortedTimestamp: '2019-12-26T14:38:00+00:00',
-    likedBy: [],
-    retweetedBy: [ 'treasurymog' ],
-    status: "If you're a �� diplomat abroad today, let me know where you are and what you're up to!",
-    media: []
-  },
-  {
-    id: '1215324598067245056r2',
-    authorHandle: 'diplomog',
-    timestamp: '2020-01-19T09:14:00+00:00',
-    sortedTimestamp: '2020-01-19T09:14:00+00:00',
-    retweetOf: '1215324598067245056',
-    likedBy: [],
-    retweetedBy: []
-  },
-  {
-    id: '1214624813723136002',
-    authorHandle: 'diplomog',
-    timestamp: '2020-01-12T04:31:00+00:00',
-    sortedTimestamp: '2020-01-12T04:31:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: 'Sometimes I wonder... am I playing with the ribbon or is the ribbon playing with me?\n' +
-      '\n' +
-      'Maybe a more diplomatic approach will work �',
-    media: [ [Object] ]
-  },
-  {
-    id: '1209788222324256768',
-    authorHandle: 'diplomog',
-    timestamp: '2019-12-25T21:53:00+00:00',
-    sortedTimestamp: '2019-12-25T21:53:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: 'Moggy Christmas to all!\n' +
-      '\n' +
-      'Special wishes to all my diplomats, far from home at this time of year, serving �� all over the �.',
-    media: [ [Object] ]
-  },
-  {
-    id: '1212021009320161280',
-    authorHandle: 'diplomog',
-    timestamp: '2019-12-30T19:23:00+00:00',
-    sortedTimestamp: '2019-12-30T19:23:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: '2019 has a been a wonderful year, but I definitely deserve some rest!\n' +
-      '\n' +
-      'I would love to know what my ��diplomats have been getting up to! What’s been your highlight or biggest achievement of the year?\n' +
-      '\n' +
-      'My highlight has been coming back to work with my very own Palmy HQ �',
-    media: [ [Object] ]
-  },
-  {
-    id: '1215337574526525440',
-    authorHandle: 'giantcat9',
-    timestamp: '2020-01-09T13:20:00+00:00',
-    sortedTimestamp: '2020-01-09T13:20:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: 'Olifant / Rooikat',
-    media: [ [Object] ]
-  },
-  {
-    id: '1215324598067245056',
-    authorHandle: 'giantcat9',
-    timestamp: '2020-01-06T09:20:00+00:00',
-    sortedTimestamp: '2020-01-06T09:20:00+00:00',
-    likedBy: [],
-    retweetedBy: [ 'diplomog' ],
-    status: 'JAS 39 Gripen',
-    media: [ [Object] ]
-  },
-  {
-    id: '1215288136026284032',
-    authorHandle: 'giantcat9',
-    timestamp: '2019-12-24T14:02:00+00:00',
-    sortedTimestamp: '2019-12-24T14:02:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: 'FGS Frankfurt Am Main (A 1412)',
-    media: [ [Object] ]
-  },
-  {
-    id: '1215286068716736512',
-    authorHandle: 'giantcat9',
-    timestamp: '2019-12-29T22:19:00+00:00',
-    sortedTimestamp: '2019-12-29T22:19:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: '"The principle of giant military cats deterrence states that a country’s possession of giant military cats discourages other countries from using giant military cats".',
-    media: []
-  },
-  {
-    id: '1215277385404309504',
-    authorHandle: 'giantcat9',
-    timestamp: '2020-01-01T11:53:00+00:00',
-    sortedTimestamp: '2020-01-01T11:53:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: 'Come adopt Storm #Philadelphia\n' +
-      'He needs you to storm the enemy lines and find his new #ForeverHome\n' +
-      '#AdoptDontShop\n' +
-      'https://morrisanimalrefuge.org/adopt/storm ',
-    media: [ [Object] ]
-  },
-  {
-    id: '1216044243980095488',
-    authorHandle: 'giantcat9',
-    timestamp: '2020-01-11T12:08:00+00:00',
-    sortedTimestamp: '2020-01-11T12:08:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: 'USNS Comfort (T-AH-20)',
-    media: [ [Object] ]
-  },
-  {
-    id: '1215996774806106114',
-    authorHandle: 'giantcat9',
-    timestamp: '2020-01-11T08:59:00+00:00',
-    sortedTimestamp: '2020-01-11T08:59:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: '"Scotland Forever!"\nby Lady Butler / 1881',
-    media: [ [Object] ]
-  },
-  {
-    id: '1215991148579315713',
-    authorHandle: 'giantcat9',
-    timestamp: '2020-01-11T08:37:00+00:00',
-    sortedTimestamp: '2020-01-11T08:37:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: 'M1128 Stryker MGS',
-    media: [ [Object] ]
-  },
-  {
-    id: '1215953505451638784',
-    authorHandle: 'giantcat9',
-    timestamp: '2020-01-12T17:27:00+00:00',
-    sortedTimestamp: '2020-01-12T17:27:00+00:00',
-    likedBy: [],
-    retweetedBy: [],
-    status: 'Stridsbåt 90H (CB90)',
-    media: [ [Object] ]
-  },
-  {
-    id: 393924722383392830,
+    id: 974534690031325200,
     authorHandle: 'treasurymog',
-    timestamp: '2020-08-13T13:43:28.168Z',
-    sortedTimestamp: '2020-08-13T13:43:28.168Z',
+    timestamp: '2020-08-13T22:14:14.107Z',
+    sortedTimestamp: '2020-08-13T22:14:14.107Z',
     retweetOf: '1212689921057665024'
   }
 ]
 2iiiiiiii
+1==========++++++____---__+
+treasurymog
+{
+  id: '1209791721099411456r1',
+  authorHandle: 'diplomog',
+  timestamp: '2019-12-26T14:38:00+00:00',
+  sortedTimestamp: '2020-01-19T09:14:00+00:00',
+  likedBy: [],
+  retweetedBy: [],
+  status: "If you're a �� diplomat abroad today, let me know where you are and what you're up to!",
+  media: [],
+  retweetFrom: {
+    handle: 'treasurymog',
+    displayName: 'Gladstone, Esq.',
+    avatarSrc: '/assets/treasurymog-avatar.jpg',
+    bannerSrc: '/assets/treasurymog-banner.jpeg',
+    location: 'Whitehall, London',
+    url: undefined,
+    joined: '2016-10-12T12:00',
+    bio: 'I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.',
+    numFollowing: 2,
+    numFollowers: 2,
+    numLikes: 1,
+    isFollowingYou: false,
+    isBeingFollowedByYou: false
+  }
+}
+{
+  id: '1209791721099411456r1',
+  authorHandle: 'diplomog',
+  timestamp: '2019-12-26T14:38:00+00:00',
+  sortedTimestamp: '2020-01-19T09:14:00+00:00',
+  likedBy: [],
+  retweetedBy: [],
+  status: "If you're a �� diplomat abroad today, let me know where you are and what you're up to!",
+  media: [],
+  retweetFrom: {
+    handle: 'treasurymog',
+    displayName: 'Gladstone, Esq.',
+    avatarSrc: '/assets/treasurymog-avatar.jpg',
+    bannerSrc: '/assets/treasurymog-banner.jpeg',
+    location: 'Whitehall, London',
+    url: undefined,
+    joined: '2016-10-12T12:00',
+    bio: 'I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.',
+    numFollowing: 2,
+    numFollowers: 2,
+    numLikes: 1,
+    isFollowingYou: false,
+    isBeingFollowedByYou: false
+  }
+}
+2==========++++++____---__+
+3==========++++++____---__+
+treasurymog
+{
+  id: '1209791721099411456r1',
+  timestamp: '2019-12-26T14:38:00+00:00',
+  sortedTimestamp: '2020-01-19T09:14:00+00:00',
+  status: "If you're a �� diplomat abroad today, let me know where you are and what you're up to!",
+  media: [],
+  retweetFrom: {
+    handle: 'treasurymog',
+    displayName: 'Gladstone, Esq.',
+    avatarSrc: '/assets/treasurymog-avatar.jpg',
+    bannerSrc: '/assets/treasurymog-banner.jpeg',
+    location: 'Whitehall, London',
+    url: undefined,
+    joined: '2016-10-12T12:00',
+    bio: 'I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.',
+    numFollowing: 2,
+    numFollowers: 2,
+    numLikes: 1,
+    isFollowingYou: false,
+    isBeingFollowedByYou: false
+  },
+  author: {
+    handle: 'diplomog',
+    displayName: 'Palmerston',
+    avatarSrc: '/assets/diplomog-avatar.jpg',
+    bannerSrc: '/assets/diplomog-banner.jpeg',
+    location: 'Whitehall',
+    url: 'http://fco.gov.uk',
+    joined: '2016-02-02T12:00',
+    bio: 'Best friends with @treasurymog.',
+    numFollowing: 1,
+    numFollowers: 1,
+    numLikes: 1,
+    isFollowingYou: true,
+    isBeingFollowedByYou: true
+  }
+}
+{
+  id: '1209791721099411456r1',
+  authorHandle: 'diplomog',
+  timestamp: '2019-12-26T14:38:00+00:00',
+  sortedTimestamp: '2020-01-19T09:14:00+00:00',
+  likedBy: [],
+  retweetedBy: [],
+  status: "If you're a �� diplomat abroad today, let me know where you are and what you're up to!",
+  media: [],
+  retweetFrom: {
+    handle: 'treasurymog',
+    displayName: 'Gladstone, Esq.',
+    avatarSrc: '/assets/treasurymog-avatar.jpg',
+    bannerSrc: '/assets/treasurymog-banner.jpeg',
+    location: 'Whitehall, London',
+    url: undefined,
+    joined: '2016-10-12T12:00',
+    bio: 'I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.',
+    numFollowing: 2,
+    numFollowers: 2,
+    numLikes: 1,
+    isFollowingYou: false,
+    isBeingFollowedByYou: false
+  }
+}
+4==========++++++____---__+
+1==========++++++____---__+
+treasurymog
+{
+  id: '1212689921057665024',
+  authorHandle: 'treasurymog',
+  timestamp: '2020-01-12T09:14:00+00:00',
+  sortedTimestamp: '2020-01-12T09:14:00+00:00',
+  likedBy: [],
+  retweetedBy: [ 'treasurymog' ],
+  status: 'Ok people #backtowork you go. Cats...just carry on lounging around as usual.',
+  media: [ { type: 'img', url: '/assets/ENRXDPKWwAEJqFu.jpeg' } ]
+}
+{
+  id: '1212689921057665024',
+  authorHandle: 'treasurymog',
+  timestamp: '2020-01-12T09:14:00+00:00',
+  sortedTimestamp: '2020-01-12T09:14:00+00:00',
+  likedBy: [],
+  retweetedBy: [ 'treasurymog' ],
+  status: 'Ok people #backtowork you go. Cats...just carry on lounging around as usual.',
+  media: [ { type: 'img', url: '/assets/ENRXDPKWwAEJqFu.jpeg' } ]
+}
+2==========++++++____---__+
+3==========++++++____---__+
+treasurymog
+{
+  id: '1212689921057665024',
+  timestamp: '2020-01-12T09:14:00+00:00',
+  sortedTimestamp: '2020-01-12T09:14:00+00:00',
+  status: 'Ok people #backtowork you go. Cats...just carry on lounging around as usual.',
+  media: [ { type: 'img', url: '/assets/ENRXDPKWwAEJqFu.jpeg' } ],
+  author: {
+    handle: 'treasurymog',
+    displayName: 'Gladstone, Esq.',
+    avatarSrc: '/assets/treasurymog-avatar.jpg',
+    bannerSrc: '/assets/treasurymog-banner.jpeg',
+    location: 'Whitehall, London',
+    url: undefined,
+    joined: '2016-10-12T12:00',
+    bio: 'I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.',
+    numFollowing: 2,
+    numFollowers: 2,
+    numLikes: 1,
+    isFollowingYou: false,
+    isBeingFollowedByYou: false
+  }
+}
+{
+  id: '1212689921057665024',
+  authorHandle: 'treasurymog',
+  timestamp: '2020-01-12T09:14:00+00:00',
+  sortedTimestamp: '2020-01-12T09:14:00+00:00',
+  likedBy: [],
+  retweetedBy: [ 'treasurymog' ],
+  status: 'Ok people #backtowork you go. Cats...just carry on lounging around as usual.',
+  media: [ { type: 'img', url: '/assets/ENRXDPKWwAEJqFu.jpeg' } ]
+}
+4==========++++++____---__+
+1==========++++++____---__+
+treasurymog
+{
+  id: 974534690031325200,
+  authorHandle: 'treasurymog',
+  timestamp: '2020-01-12T09:14:00+00:00',
+  sortedTimestamp: '2020-08-13T22:14:14.107Z',
+  likedBy: undefined,
+  retweetedBy: undefined,
+  status: 'Ok people #backtowork you go. Cats...just carry on lounging around as usual.',
+  media: [ { type: 'img', url: '/assets/ENRXDPKWwAEJqFu.jpeg' } ],
+  retweetFrom: {
+    handle: 'treasurymog',
+    displayName: 'Gladstone, Esq.',
+    avatarSrc: '/assets/treasurymog-avatar.jpg',
+    bannerSrc: '/assets/treasurymog-banner.jpeg',
+    location: 'Whitehall, London',
+    url: undefined,
+    joined: '2016-10-12T12:00',
+    bio: 'I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.',
+    numFollowing: 2,
+    numFollowers: 2,
+    numLikes: 1,
+    isFollowingYou: false,
+    isBeingFollowedByYou: false
+  }
+}
+{
+  id: 974534690031325200,
+  authorHandle: 'treasurymog',
+  timestamp: '2020-01-12T09:14:00+00:00',
+  sortedTimestamp: '2020-08-13T22:14:14.107Z',
+  likedBy: undefined,
+  retweetedBy: undefined,
+  status: 'Ok people #backtowork you go. Cats...just carry on lounging around as usual.',
+  media: [ { type: 'img', url: '/assets/ENRXDPKWwAEJqFu.jpeg' } ],
+  retweetFrom: {
+    handle: 'treasurymog',
+    displayName: 'Gladstone, Esq.',
+    avatarSrc: '/assets/treasurymog-avatar.jpg',
+    bannerSrc: '/assets/treasurymog-banner.jpeg',
+    location: 'Whitehall, London',
+    url: undefined,
+    joined: '2016-10-12T12:00',
+    bio: 'I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.',
+    numFollowing: 2,
+    numFollowers: 2,
+    numLikes: 1,
+    isFollowingYou: false,
+    isBeingFollowedByYou: false
+  }
+}
+2==========++++++____---__+
+3==========++++++____---__+
+treasurymog
+{
+  id: 974534690031325200,
+  timestamp: '2020-01-12T09:14:00+00:00',
+  sortedTimestamp: '2020-08-13T22:14:14.107Z',
+  status: 'Ok people #backtowork you go. Cats...just carry on lounging around as usual.',
+  media: [ { type: 'img', url: '/assets/ENRXDPKWwAEJqFu.jpeg' } ],
+  retweetFrom: {
+    handle: 'treasurymog',
+    displayName: 'Gladstone, Esq.',
+    avatarSrc: '/assets/treasurymog-avatar.jpg',
+    bannerSrc: '/assets/treasurymog-banner.jpeg',
+    location: 'Whitehall, London',
+    url: undefined,
+    joined: '2016-10-12T12:00',
+    bio: 'I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.',
+    numFollowing: 2,
+    numFollowers: 2,
+    numLikes: 1,
+    isFollowingYou: false,
+    isBeingFollowedByYou: false
+  },
+  author: {
+    handle: 'treasurymog',
+    displayName: 'Gladstone, Esq.',
+    avatarSrc: '/assets/treasurymog-avatar.jpg',
+    bannerSrc: '/assets/treasurymog-banner.jpeg',
+    location: 'Whitehall, London',
+    url: undefined,
+    joined: '2016-10-12T12:00',
+    bio: 'I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.',
+    numFollowing: 2,
+    numFollowers: 2,
+    numLikes: 1,
+    isFollowingYou: false,
+    isBeingFollowedByYou: false
+  }
+}
+{
+  id: 974534690031325200,
+  authorHandle: 'treasurymog',
+  timestamp: '2020-01-12T09:14:00+00:00',
+  sortedTimestamp: '2020-08-13T22:14:14.107Z',
+  likedBy: undefined,
+  retweetedBy: undefined,
+  status: 'Ok people #backtowork you go. Cats...just carry on lounging around as usual.',
+  media: [ { type: 'img', url: '/assets/ENRXDPKWwAEJqFu.jpeg' } ],
+  retweetFrom: {
+    handle: 'treasurymog',
+    displayName: 'Gladstone, Esq.',
+    avatarSrc: '/assets/treasurymog-avatar.jpg',
+    bannerSrc: '/assets/treasurymog-banner.jpeg',
+    location: 'Whitehall, London',
+    url: undefined,
+    joined: '2016-10-12T12:00',
+    bio: 'I live and work at the Treasury as a mouser but I also have a paw in the finances. Here to help lighten up the political world. Unofficial.',
+    numFollowing: 2,
+    numFollowers: 2,
+    numLikes: 1,
+    isFollowingYou: false,
+    isBeingFollowedByYou: false
+  }
+}
+4==========++++++____---__+
+TypeError: Cannot read property 'includes' of undefined
+    at denormalizeTweet (C:\Users\David\Desktop\cb\project-m4-twitter-clone\server\routes\routes.helpers.js:99:37)
+    at Array.map (<anonymous>)
+    at getTweetsFromUser (C:\Users\David\Desktop\cb\project-m4-twitter-clone\server\routes\routes.helpers.js:125:6)
+    at C:\Users\David\Desktop\cb\project-m4-twitter-clone\server\routes\feed.js:52:18
+    at Layer.handle [as handle_request] (C:\Users\David\Desktop\cb\project-m4-twitter-clone\server\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\David\Desktop\cb\project-m4-twitter-clone\server\node_modules\express\lib\router\route.js:137:13)     
+    at Route.dispatch (C:\Users\David\Desktop\cb\project-m4-twitter-clone\server\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\David\Desktop\cb\project-m4-twitter-clone\server\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\David\Desktop\cb\project-m4-twitter-clone\server\node_modules\express\lib\router\index.js:281:22
+    at param (C:\Users\David\Desktop\cb\project-m4-twitter-clone\server\node_modules\express\lib\router\index.js:354:14)    
+^A^A^A

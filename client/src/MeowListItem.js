@@ -1,11 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  FiMessageCircle,
-  FiRepeat,
-  FiHeart,
-  FiUpload,
-} from "react-icons/fi";
+import { FiMessageCircle, FiRepeat, FiHeart, FiUpload } from "react-icons/fi";
 import { COLORS } from "./constants";
 import { CurrentUserContext } from "./CurrentUserContext";
 
@@ -33,6 +28,8 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
   }
 
   function toggleReTweeted(e) {
+    console.log(tweetByID);
+
     async function changeReTweeted() {
       const data = await currentuserContext.putRetweetByID(
         tweetByID.id,
@@ -51,7 +48,8 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
         }
       }
     }
-    changeReTweeted();
+    // retweet iis a stretch goal
+    //changeReTweeted();
   }
 
   const [author, setAuthor] = React.useState();
@@ -86,6 +84,8 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
 
     setNumLikes(tweetByID.numLikes);
     setNumRetweets(tweetByID.numRetweets);
+
+    if (tweetByID.retweetFrom !== undefined)
 
     // console.log(isLiked);
     // console.log(tweetByID.isLiked);
