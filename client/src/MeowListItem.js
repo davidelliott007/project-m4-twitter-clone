@@ -60,11 +60,14 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
   const [tweetTimeStamp, setTweetTimeStamp] = React.useState();
   const [isLiked, setIsLiked] = React.useState();
   const [isRetweeted, setIsRetweeted] = React.useState();
+  const [isARetweet, setIsARetweet] = React.useState();
 
   const [numLikes, setNumLikes] = React.useState();
   const [numRetweets, setNumRetweets] = React.useState();
 
   React.useEffect(() => {
+    setIsARetweet(false);
+
     console.log(tweetByID);
 
     setAuthor(tweetByID.author.displayName);
@@ -85,43 +88,62 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
     setNumLikes(tweetByID.numLikes);
     setNumRetweets(tweetByID.numRetweets);
 
-    if (tweetByID.retweetFrom !== undefined)
+    if (tweetByID.retweetFrom !== undefined) {
+      console.log("retweetID");
+      console.log(tweetByID);
+      setIsARetweet(true);
+      console.log(tweetByID.retweetFrom);
+    }
 
     // console.log(isLiked);
     // console.log(tweetByID.isLiked);
   }, []);
 
   return (
-    <TweetSection>
-      <Author>
-        <AuthorImg src={authorImg} alt="authorImg Image" />
-        <AuthorNameHandle>
-          <Name>{author}</Name>
-          <Handle>@{handle}</Handle>
-        </AuthorNameHandle>
-      </Author>
-      <TweetStatus>{tweetStatus}</TweetStatus>
-      {tweetImg ? <TweetImg src={tweetImg} alt="Tweet Image" /> : ""}
+    <div>
+      {isARetweet ? (
+        <RetweetedBy>
+          <FiRepeat></FiRepeat> Retweeted by {tweetByID.retweetFrom.displayName}
+        </RetweetedBy>
+      ) : (
+        ""
+      )}
+      <TweetSection>
+        <Author>
+          <AuthorImg src={authorImg} alt="authorImg Image" />
+          <AuthorNameHandle>
+            <Name>{author}</Name>
+            <Handle>@{handle}</Handle>
+          </AuthorNameHandle>
+        </Author>
+        <TweetStatus>{tweetStatus}</TweetStatus>
+        {tweetImg ? <TweetImg src={tweetImg} alt="Tweet Image" /> : ""}
 
-      <DateSection>{tweetTimeStamp}</DateSection>
-      <Seperator />
-      <TweetButtons>
-        <MeowButton>
-          <CustomFiMessageCircle />
-        </MeowButton>
-        <MeowButton onClick={toggleReTweeted}>
-          {isRetweeted ? <HighlightedFiRepeat /> : <FiRepeat />} {numRetweets}
-        </MeowButton>
-        <MeowButton onClick={toggleLiked}>
-          {isLiked ? <FilledFiHeart /> : <FiHeart />} {numLikes}
-        </MeowButton>
-        <MeowButton>
-          <FiUpload />
-        </MeowButton>
-      </TweetButtons>
-    </TweetSection>
+        <DateSection>{tweetTimeStamp}</DateSection>
+        <Seperator />
+        <TweetButtons>
+          <MeowButton>
+            <CustomFiMessageCircle />
+          </MeowButton>
+          <MeowButton onClick={toggleReTweeted}>
+            {isRetweeted ? <HighlightedFiRepeat /> : <FiRepeat />} {numRetweets}
+          </MeowButton>
+          <MeowButton onClick={toggleLiked}>
+            {isLiked ? <FilledFiHeart /> : <FiHeart />} {numLikes}
+          </MeowButton>
+          <MeowButton>
+            <FiUpload />]
+          </MeowButton>
+        </TweetButtons>
+      </TweetSection>
+    </div>
   );
 }
+
+const RetweetedBy = styled.div`
+  font-style: Italic;
+  color: ${COLORS.lightText};
+`;
 
 const CustomFiMessageCircle = styled(FiMessageCircle)`
 /* width: 20px;
@@ -133,8 +155,8 @@ height: 20px; */
 `;
 
 const FilledFiHeart = styled(FiHeart)`
-  /* width: 20px;
-height: 20px; */
+  /* width: 20px;,,=,,,,,,,,,,,,,,,,
+height: 20px; */h
   fill: red;
   color: red;
 `;
