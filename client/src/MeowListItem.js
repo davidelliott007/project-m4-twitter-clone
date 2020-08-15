@@ -120,9 +120,9 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
       <TweetSection
         onClick={handleTweetClicked}
         style={{
-          background: isSelected
-            ? "hsla(50deg, 100%, 80%, 0.25)"
-            : "transparent",
+          border: tweetByID.isHighlighted
+            ? "2px solid hotpink"
+            : "2px solid #bbb",
         }}
       >
         <Author>
