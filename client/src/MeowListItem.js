@@ -5,7 +5,7 @@ import { COLORS } from "./constants";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { useHistory } from "react-router-dom";
 
-function MeowListItem({ tweetByID, authorCurrentUser }) {
+function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
   const currentuserContext = React.useContext(CurrentUserContext);
   let history = useHistory();
 
@@ -26,6 +26,7 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
         }
       }
     }
+    e.stopPropagation();
     changeTweetLiked();
   }
 
@@ -50,6 +51,8 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
         }
       }
     }
+    e.stopPropagation();
+
     // retweet iis a stretch goal
     //changeReTweeted();
   }
@@ -114,7 +117,14 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
       ) : (
         ""
       )}
-      <TweetSection onClick={handleTweetClicked}>
+      <TweetSection
+        onClick={handleTweetClicked}
+        style={{
+          background: isSelected
+            ? "hsla(50deg, 100%, 80%, 0.25)"
+            : "transparent",
+        }}
+      >
         <Author>
           <AuthorImg src={authorImg} alt="authorImg Image" />
           <AuthorNameHandle>
@@ -138,7 +148,7 @@ function MeowListItem({ tweetByID, authorCurrentUser }) {
             {isLiked ? <FilledFiHeart /> : <FiHeart />} {numLikes}
           </MeowButton>
           <MeowButton>
-            <FiUpload />]
+            <FiUpload />
           </MeowButton>
         </TweetButtons>
       </TweetSection>

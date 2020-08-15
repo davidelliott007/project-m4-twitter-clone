@@ -56,6 +56,11 @@ export const CurrentUserContextProvider = ({ children }) => {
             a.timestamp > b.timestamp ? -1 : b.timestamp > a.timestamp ? 1 : 0
           );
           console.log("sorted_tweets ", sorted_tweets);
+          sorted_tweets = sorted_tweets.map((element, i) => {
+            let test_obj = { isHighlighted: false };
+            return { ...element, ...test_obj };
+          });
+
           data.tweetsById = {};
           data.tweetsById = sorted_tweets;
 

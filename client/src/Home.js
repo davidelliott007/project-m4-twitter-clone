@@ -4,6 +4,8 @@ import Sidebar from "./SideBar";
 import { CurrentUserContext } from "./CurrentUserContext";
 import MeowListItem from "./MeowListItem";
 import { COLORS } from "./constants";
+let keySelectedMeowIndex = 0;
+let tweets_count = 0;
 
 function Home() {
   const currentuserContext = React.useContext(CurrentUserContext);
@@ -13,6 +15,7 @@ function Home() {
   const [inputCharCount, setInputCharCount] = React.useState();
   const [textfieldValue, setTextfieldValue] = React.useState();
   const [profile_data, setProfile_data] = React.useState();
+  const [keySelectedMeowIndex, setKeySelectedMeowIndex] = React.useState();
 
   let maxCharCount = currentuserContext.maxCharCount;
 
@@ -70,6 +73,75 @@ function Home() {
   function clearText(event) {
     setTextfieldValue("");
   }
+  function keyPressHandler(event) {
+    switch (event.key) {
+      case "Enter": {
+        //selectBook();
+        // handleSelect(ev.target.value);
+        return;
+      }
+      case "ArrowUp": {
+        keySelectedMeowIndex = keySelectedMeowIndex - 1;
+        if (keySelectedMeowIndex < 0) {
+          keySelectedMeowIndex = 0;
+        }
+        console.log(keySelectedMeowIndex);
+
+        //findBook(event);
+        return;
+      }
+      case "ArrowDown": {
+        keySelectedMeowIndex = keySelectedMeowIndex + 1;
+        if (keySelectedMeowIndex > tweets_count) {
+          keySelectedMeowIndex = tweets_count;
+        }
+        //findBook(event);
+        console.log(keySelectedMeowIndex);
+        return;
+        // TODO: Handle moving the selection down
+      }
+      case "Escape": {
+        // clear();
+      }
+    }
+  }
+
+  React.useEffect(() => {
+    setTextfieldValue("What's meowing?");
+
+    async function getMeowsFromUser() {
+      maxCharCount = currentuserContext.maxCharCount;
+      setInputCharCount(maxCharCount);
+
+      // TODO: question for TCs - why doesn't profile_data update from insbide an asynch function?
+      let local_profile_data = await currentuserContext.getMyProfilePromise();
+
+      setProfile_data(local_profile_data);
+      // console.log("profile data is ");
+      // console.log(profile_data);
+
+      // setauthorCurrentUser(profile_data.profile.author);
+
+      setAuthorImg(local_profile_data.profile.avatarSrc);
+
+      const feed = await currentuserContext.getFeedByHandlePromise(
+        local_profile_data.profile.handle
+      );
+      // TODO going to make the change from object to array here, to see if that helps with refresh
+
+      console.log("first tweet");
+      let test_obj = { isHighlighted: false };
+      let combined = { ...feed.tweetsById[0], ...test_obj };
+      console.log(feed.tweetsById[0]);
+      console.log(combined);
+
+      setTweetsFromUser(feed.tweetsById);
+
+      tweets_count = Object.values(feed.tweetsById).length - 1;
+    }
+    getMeowsFromUser();
+    window.addEventListener("keydown", keyPressHandler);
+  }, []);
 
   React.useEffect(() => {
     setTextfieldValue("What's meowing?");
@@ -94,9 +166,12 @@ function Home() {
       );
       // TODO going to make the change from object to array here, to see if that helps with refresh
       setTweetsFromUser(feed.tweetsById);
+
+      tweets_count = Object.values(feed.tweetsById).length - 1;
     }
     getMeowsFromUser();
-  }, []);
+    window.addEventListener("keydown", keyPressHandler);
+  }, [keySelectedMeowIndex]);
 
   return (
     <Wrapper>
@@ -136,9 +211,13 @@ function Home() {
             )}
           </CharCountAndButton>
         </MeowComposer>
-        {Object.values(tweetsFromUser).map((element) => {
+        {Object.values(tweetsFromUser).map((element, i) => {
           return (
-            <MeowListItem tweetByID={element} key={element.id}></MeowListItem>
+            <MeowListItem
+              tweetByID={element}
+              key={element.id}
+              isSelected={i === keySelectedMeowIndex}
+            ></MeowListItem>
           );
         })}
       </MainSection>
