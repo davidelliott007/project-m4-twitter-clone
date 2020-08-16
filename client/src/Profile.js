@@ -7,6 +7,9 @@ import { useParams } from "react-router-dom";
 import { COLORS } from "./constants";
 import { FiMapPin, FiCalendar } from "react-icons/fi";
 import { format } from "date-fns";
+
+let keySelectedMeowIndex = 0;
+
 function Profile(props) {
   const currentuserContext = React.useContext(CurrentUserContext);
   const profileID = useParams().profileID;
@@ -55,8 +58,8 @@ function Profile(props) {
         profile_data.profile.handle
       );
       setTweetsFromUser(feed.tweetsById);
-
     }
+    window.addEventListener("keydown", keyPressHandler);
 
     getMeowsFromUser();
   }, []);

@@ -4,11 +4,15 @@ import Sidebar from "./SideBar";
 import { CurrentUserContext } from "./CurrentUserContext";
 import MeowListItem from "./MeowListItem";
 import { COLORS } from "./constants";
+import { useHistory } from "react-router-dom";
+
 let keySelectedMeowIndex = 0;
 let tweets_count = 0;
 let outside_tweets;
+
 function Home() {
   const currentuserContext = React.useContext(CurrentUserContext);
+  let history = useHistory();
 
   const [tweetsFromUser, setTweetsFromUser] = React.useState([]);
   const [authorImg, setAuthorImg] = React.useState();
@@ -87,9 +91,18 @@ function Home() {
     setTweetsFromUser(outside_tweets);
   }
 
+  function loadTweet(event) {
+    console.log("laod tweet");
+    let currently_selected = outside_tweets[keySelectedMeowIndex];
+
+    console.log(currently_selected);
+    history.push(`/tweet/${currently_selected.id}`);
+  }
+
   function keyPressHandler(event) {
     switch (event.key) {
       case "Enter": {
+        loadTweet(event.target);
         //selectBook();
         // handleSelect(ev.target.value);
         return;
