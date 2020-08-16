@@ -19,7 +19,6 @@ function Home() {
   const [inputCharCount, setInputCharCount] = React.useState();
   const [textfieldValue, setTextfieldValue] = React.useState();
   const [profile_data, setProfile_data] = React.useState();
-  // const [keySelectedMeowIndex, setKeySelectedMeowIndex] = React.useState();
 
   let maxCharCount = currentuserContext.maxCharCount;
 

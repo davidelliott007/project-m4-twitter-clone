@@ -7,12 +7,15 @@ import { useParams } from "react-router-dom";
 import { COLORS } from "./constants";
 import { FiMapPin, FiCalendar } from "react-icons/fi";
 import { format } from "date-fns";
+import { useHistory } from "react-router-dom";
 
 let keySelectedMeowIndex = 0;
+let tweets_count = 0;
 
 function Profile(props) {
   const currentuserContext = React.useContext(CurrentUserContext);
   const profileID = useParams().profileID;
+  let history = useHistory();
 
   const [tweetsFromUser, setTweetsFromUser] = React.useState([]);
   const [avatarImg, setAvatarImg] = React.useState();
@@ -26,6 +29,62 @@ function Profile(props) {
   const [numFollowing, setNumFollowing] = React.useState();
   const [bio, setBio] = React.useState([]);
   const [isBeingFollowedByYou, setIsBeingFollowedByYou] = React.useState();
+  let outside_tweets;
+
+  function highLightTweet() {
+    outside_tweets = Object.values(outside_tweets).map((element, i) => {
+      if (i === keySelectedMeowIndex) {
+        element.isHighlighted = true;
+      } else {
+        element.isHighlighted = false;
+      }
+
+      return element;
+    });
+    setTweetsFromUser(outside_tweets);
+  }
+
+  function loadTweet(event) {
+    console.log("laod tweet");
+    let currently_selected = outside_tweets[keySelectedMeowIndex];
+
+    console.log(currently_selected);
+    history.push(`/tweet/${currently_selected.id}`);
+  }
+
+  function keyPressHandler(event) {
+    switch (event.key) {
+      case "Enter": {
+        loadTweet(event.target);
+        //selectBook();
+        // handleSelect(ev.target.value);
+        return;
+      }
+      case "ArrowUp": {
+        keySelectedMeowIndex = keySelectedMeowIndex - 1;
+        if (keySelectedMeowIndex < 0) {
+          keySelectedMeowIndex = 0;
+        }
+        console.log(keySelectedMeowIndex);
+
+        highLightTweet();
+        return;
+      }
+      case "ArrowDown": {
+        keySelectedMeowIndex = keySelectedMeowIndex + 1;
+        if (keySelectedMeowIndex > tweets_count) {
+          keySelectedMeowIndex = tweets_count;
+        }
+        console.log(keySelectedMeowIndex);
+        highLightTweet();
+
+        return;
+      }
+      case "Escape": {
+        // clear();
+      }
+    }
+  }
 
   React.useEffect(() => {
     // console.log(profileID);
@@ -58,6 +117,8 @@ function Profile(props) {
         profile_data.profile.handle
       );
       setTweetsFromUser(feed.tweetsById);
+      outside_tweets = feed.tweetsById;
+      tweets_count = Object.values(feed.tweetsById).length - 1;
     }
     window.addEventListener("keydown", keyPressHandler);
 
