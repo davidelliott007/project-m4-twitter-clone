@@ -4,6 +4,7 @@ import { FiMessageCircle, FiRepeat, FiHeart, FiUpload } from "react-icons/fi";
 import { COLORS } from "./constants";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
   const currentuserContext = React.useContext(CurrentUserContext);
@@ -59,6 +60,14 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
 
   function handleTweetClicked(e) {
     history.push(`/tweet/${tweetByID.id}`);
+  }
+
+  function goToProfile(e) {
+    console.log(tweetByID);
+    e.stopPropagation();
+    history.push(`/${tweetByID.author.handle}`);
+
+    // history.push(`/${handlepassed}`);
   }
 
   const [author, setAuthor] = React.useState();
@@ -127,7 +136,8 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
       >
         <Author>
           <AuthorImg src={authorImg} alt="authorImg Image" />
-          <AuthorNameHandle>
+
+          <AuthorNameHandle onClick={goToProfile}>
             <Name>{author}</Name>
             <Handle>@{handle}</Handle>
           </AuthorNameHandle>
@@ -244,10 +254,27 @@ const TweetButtons = styled.div`
 
 const Name = styled.div`
   font-weight: bold;
+  border-bottom: 1px solid transparent;
+
+  :hover {
+    cursor: pointer;
+    color: darkText;
+
+    color: ${COLORS.primary};
+    border-bottom: 1px solid ${COLORS.primary};
+  }
 `;
 
 const Handle = styled.div`
   color: grey;
+  border-bottom: 1px solid transparent;
+  :hover {
+    cursor: pointer;
+    color: darkText;
+
+    color: ${COLORS.primary};
+    border-bottom: 1px solid ${COLORS.primary};
+  }
 `;
 
 const Author = styled.div`
