@@ -163,6 +163,10 @@ const TweetSection = styled.div`
   border-radius: 2px;
   padding: 15px;
   margin-bottom: 25px;
+  :hover {
+    cursor: pointer;
+    border: 2px solid hotpink !important;
+  }
 `;
 
 const RetweetedBy = styled.div`
