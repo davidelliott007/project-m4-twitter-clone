@@ -32,7 +32,9 @@ function Meow(props) {
       setAuthor(data.tweet.author.displayName);
       setHandle(data.tweet.author.handle);
 
-      settweetImg(data.tweet.media[0].url);
+      if (data.tweet.media !== undefined && data.tweet.media.length > 0) {
+        settweetImg(data.tweet.media[0].url);
+      }
       setTweetStatus(data.tweet.status);
       setAuthorImg(data.tweet.author.avatarSrc);
 

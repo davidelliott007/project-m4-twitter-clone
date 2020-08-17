@@ -91,7 +91,7 @@ function Home() {
   }
 
   function loadTweet(event) {
-    console.log("laod tweet");
+    console.log("load tweet");
     let currently_selected = outside_tweets[keySelectedMeowIndex];
 
     console.log(currently_selected);
@@ -104,6 +104,7 @@ function Home() {
         loadTweet(event.target);
         //selectBook();
         // handleSelect(ev.target.value);
+
         return;
       }
       case "ArrowUp": {
