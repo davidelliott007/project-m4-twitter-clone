@@ -32,14 +32,14 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
   }
 
   function toggleReTweeted(e) {
-    console.log(tweetByID);
+    // console.log(tweetByID);
 
     async function changeReTweeted() {
       const data = await currentuserContext.putRetweetByID(
         tweetByID.id,
         isRetweeted
       );
-      console.log(data);
+      // console.log(data);
 
       if (data.success) {
         if (isRetweeted === true) {
@@ -86,7 +86,7 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
   React.useEffect(() => {
     setIsARetweet(false);
 
-    console.log(tweetByID);
+    // console.log(tweetByID);
 
     setAuthor(tweetByID.author.displayName);
     setHandle(tweetByID.author.handle);
@@ -107,10 +107,10 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
     setNumRetweets(tweetByID.numRetweets);
 
     if (tweetByID.retweetFrom !== undefined) {
-      console.log("retweetID");
-      console.log(tweetByID);
+      // console.log("retweetID");
+      // console.log(tweetByID);
       setIsARetweet(true);
-      console.log(tweetByID.retweetFrom);
+      // console.log(tweetByID.retweetFrom);
     }
 
     // console.log(isLiked);

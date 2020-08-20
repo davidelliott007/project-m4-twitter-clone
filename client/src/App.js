@@ -7,6 +7,7 @@ import Notifications from "./Notifications";
 import Meow from "./Meow";
 import Profile from "./Profile";
 import GlobalStyles from "./GlobalStyles.js";
+import Bookmarks from "./Bookmarks";
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
         <Route path="/notifications">
           <Notifications />
         </Route>
+        <Route path="/bookmarks">
+          <Bookmarks />
+        </Route>
+
         <Route path="/tweet/:tweetid">
           <Meow />
         </Route>

@@ -13,3 +13,71 @@ Take a breal then go do that.
 So put what you did into Palmertson.  That will eb good.
 Ok so now foesd thisd
  sdlowe down my thinking  i dont know we shall see if it doesd slow me down/> >...>..
+
+
+ Ok what am I dong now ZCause it is not clear what you are doing 
+
+ okhjdhdjhof so ok so this 
+
+ so now I am so now i am touch tyooooooooppppp
+
+ ok lets see so lets see how we do here
+ ok so here we go 
+
+ whatam I what am I doing next?
+
+ This is what I=-
+
+
+
+           <div>
+            <TopSection>
+              <Banner
+                style={{
+                  backgroundImage: "url(" + bannerImg + ")",
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                }}
+                alt="banner Image"
+              />
+              <FollowingButton>
+                {isBeingFollowedByYou ? "Following" : "Not Following"}
+              </FollowingButton>
+            </TopSection>
+            <AvatarImg src={avatarImg} alt="avatar Image">
+              {" "}
+            </AvatarImg>
+            <DisplayName>{displayName}</DisplayName>
+            <HandleFollowing>
+              <Handle>@{handle}</Handle>
+              {isFollowingYou && <FollowsYou>Follows You </FollowsYou>}
+            </HandleFollowing>
+            <Bio>{bio}</Bio>
+            <LocationJoined>
+              <LocationDiv>
+                <SpacedFiMapPin />
+                {location}
+              </LocationDiv>
+              <CalendarDiv>
+                <SpacedFiCalendar />
+                {joined}
+              </CalendarDiv>
+            </LocationJoined>
+            <Followers>
+              <FollowDiv>
+                <NumFollowersDiv>{numFollowers}</NumFollowersDiv>
+                Followers
+              </FollowDiv>
+              <FollowDiv>
+                <NumFollowersDiv>{numFollowing}</NumFollowersDiv>
+                Following
+              </FollowDiv>
+            </Followers>
+            <LowerActionBar>
+              <LowerActionBarButton>Tweets</LowerActionBarButton>
+              <LowerActionBarButton>Media</LowerActionBarButton>
+              <LowerActionBarButton>Links</LowerActionBarButton>
+            </LowerActionBar>
+            <Seperator></Seperator>
+          </div>

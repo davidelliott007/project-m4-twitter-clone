@@ -8,6 +8,7 @@ import { COLORS } from "./constants";
 import { FiMapPin, FiCalendar } from "react-icons/fi";
 import { format } from "date-fns";
 import { useHistory } from "react-router-dom";
+import SpinnerJustKF from "./SpinnerJustKF";
 
 let keySelectedMeowIndex = 0;
 let tweets_count = 0;
@@ -128,57 +129,69 @@ function Profile(props) {
   return (
     <Wrapper>
       <Sidebar></Sidebar>
+
       <MainSection>
-        <TopSection>
-          <Banner
-            style={{
-              backgroundImage: "url(" + bannerImg + ")",
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-            }}
-            alt="banner Image"
-          />
-          <FollowingButton>
-            {isBeingFollowedByYou ? "Following" : "Not Following"}
-          </FollowingButton>
-        </TopSection>
-        <AvatarImg src={avatarImg} alt="avatar Image" />
-        <DisplayName>{displayName}</DisplayName>
-        <HandleFollowing>
-          <Handle>@{handle}</Handle>
-          {isFollowingYou && <FollowsYou>Follows You </FollowsYou>}
-        </HandleFollowing>
-        <Bio>{bio}</Bio>
-        <LocationJoined>
-          <LocationDiv>
-            <SpacedFiMapPin />
-            {location}
-          </LocationDiv>
-          <CalendarDiv>
-            <SpacedFiCalendar />
-            {joined}
-          </CalendarDiv>
-        </LocationJoined>
-        <Followers>
-          <FollowDiv>
-            <NumFollowersDiv>{numFollowers}</NumFollowersDiv>
-            Followers
-          </FollowDiv>
-          <FollowDiv>
-            <NumFollowersDiv>{numFollowing}</NumFollowersDiv>
-            Following
-          </FollowDiv>
-        </Followers>
-        <LowerActionBar>
-          <LowerActionBarButton>Tweets</LowerActionBarButton>
-          <LowerActionBarButton>Media</LowerActionBarButton>
-          <LowerActionBarButton>Links</LowerActionBarButton>
-        </LowerActionBar>
-        <Seperator></Seperator>
-        {Object.values(tweetsFromUser).map((element) => {
-          return <MeowListItem tweetByID={element}></MeowListItem>;
-        })}
+        {displayName === undefined ? (
+          <SpinnerJustKF></SpinnerJustKF>
+        ) : (
+          <TopInterior>
+            <TopSection>
+              <Banner
+                style={{
+                  backgroundImage: "url(" + bannerImg + ")",
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                }}
+                alt="banner Image"
+              />
+              <FollowingButton>
+                {isBeingFollowedByYou ? "Following" : "Not Following"}
+              </FollowingButton>
+            </TopSection>
+            <AvatarImg src={avatarImg} alt="avatar Image" />
+            <DisplayName>{displayName}</DisplayName>
+            <HandleFollowing>
+              <Handle>@{handle}</Handle>
+              {isFollowingYou && <FollowsYou>Follows You </FollowsYou>}
+            </HandleFollowing>
+            <Bio>{bio}</Bio>
+            <LocationJoined>
+              <LocationDiv>
+                <SpacedFiMapPin />
+                {location}
+              </LocationDiv>
+              <CalendarDiv>
+                <SpacedFiCalendar />
+                {joined}
+              </CalendarDiv>
+            </LocationJoined>
+            <Followers>
+              <FollowDiv>
+                <NumFollowersDiv>{numFollowers}</NumFollowersDiv>
+                Followers
+              </FollowDiv>
+              <FollowDiv>
+                <NumFollowersDiv>{numFollowing}</NumFollowersDiv>
+                Following
+              </FollowDiv>
+            </Followers>
+            <LowerActionBar>
+              <LowerActionBarButton>Tweets</LowerActionBarButton>
+              <LowerActionBarButton>Media</LowerActionBarButton>
+              <LowerActionBarButton>Links</LowerActionBarButton>
+            </LowerActionBar>
+            <Seperator></Seperator>
+          </TopInterior>
+        )}
+
+        {Object.values(tweetsFromUser).length > 0 ? (
+          Object.values(tweetsFromUser).map((element) => {
+            return <MeowListItem tweetByID={element}></MeowListItem>;
+          })
+        ) : (
+          <SpinnerJustKF></SpinnerJustKF>
+        )}
       </MainSection>
     </Wrapper>
   );
@@ -331,5 +344,6 @@ const Wrapper = styled.div`
 `;
 
 const MainSection = styled.div``;
+const TopInterior = styled.div``;
 
 export default Profile;

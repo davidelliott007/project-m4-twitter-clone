@@ -1,11 +1,13 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeConsumer } from "styled-components";
 import Sidebar from "./SideBar";
 import { CurrentUserContext } from "./CurrentUserContext";
 import MeowListItem from "./MeowListItem";
 import { COLORS } from "./constants";
 import { ERRORCODES } from "./constants";
 import Error505 from "./Error505";
+import Spinner from "./Spinner";
+import SpinnerJustKF from "./SpinnerJustKF";
 
 import { useHistory } from "react-router-dom";
 
@@ -73,6 +75,19 @@ function Home() {
     }
 
     if (inputCharCount > 0) {
+      console.log("inputCharCount");
+      // console.log(tweetsFromUser[0]);
+      let temp = tweetsFromUser[0];
+      temp.status = "//////loading";
+      temp.id = -1;
+      let temps = outside_tweets;
+      temps.unshift(temp);
+      console.log(temps);
+      setTweetsFromUser(temps);
+
+      // const [tweetsFromUser, setTweetsFromUser] = React.useState([]);
+
+      // tweetsFromUser[tweetsFromUser.length - 1];
       postTweet();
     }
   }
@@ -186,52 +201,67 @@ function Home() {
   //TODO note for josh - is the error checking here the best way to do this?  Seems Janky
   return (
     <Wrapper>
-      {console.log(errorStaus)}
+      {console.log(profile_data)}
       <Sidebar></Sidebar>
       {errorStaus === ERRORCODES.error500 ? (
         <Error505></Error505>
       ) : (
         <MainSection>
           <HomeTitle>Home</HomeTitle>
+          {profile_data === undefined ? (
+            <SpinnerJustKF></SpinnerJustKF>
+          ) : (
+            <MeowComposer>
+              <AuthorAndIput>
+                <AuthorImg src={authorImg} alt="authorImg Image" />
+                <MeowComposerInput
+                  type="text"
+                  value={textfieldValue}
+                  onChange={handleDraftMeow}
+                  onClick={clearText}
+                >
+                  {textfieldValue}
+                </MeowComposerInput>
+              </AuthorAndIput>
+              <CharCountAndButton>
+                <RemainingChars
+                  style={{
+                    color:
+                      inputCharCount <= 0
+                        ? `${COLORS.redText}`
+                        : inputCharCount <= 55
+                        ? `${COLORS.yellowText}`
+                        : `${COLORS.lightText}`,
+                  }}
+                >
+                  {inputCharCount}
+                </RemainingChars>
 
-          <MeowComposer>
-            <AuthorAndIput>
-              <AuthorImg src={authorImg} alt="authorImg Image" />
-              <MeowComposerInput
-                type="text"
-                value={textfieldValue}
-                onChange={handleDraftMeow}
-                onClick={clearText}
-              >
-                {textfieldValue}
-              </MeowComposerInput>
-            </AuthorAndIput>
-            <CharCountAndButton>
-              <RemainingChars
-                style={{
-                  color:
-                    inputCharCount <= 0
-                      ? `${COLORS.redText}`
-                      : inputCharCount <= 55
-                      ? `${COLORS.yellowText}`
-                      : `${COLORS.lightText}`,
-                }}
-              >
-                {inputCharCount}
-              </RemainingChars>
+                {inputCharCount > 0 ? (
+                  <MeowButton onClick={inputClick}>Meow!</MeowButton>
+                ) : (
+                  <MeowButtonPassive>No Meow!</MeowButtonPassive>
+                )}
+              </CharCountAndButton>
+            </MeowComposer>
+          )}
 
-              {inputCharCount > 0 ? (
-                <MeowButton onClick={inputClick}>Meow!</MeowButton>
-              ) : (
-                <MeowButtonPassive>No Meow!</MeowButtonPassive>
-              )}
-            </CharCountAndButton>
-          </MeowComposer>
-          {Object.values(tweetsFromUser).map((element, i) => {
-            return (
-              <MeowListItem tweetByID={element} key={element.id}></MeowListItem>
-            );
-          })}
+          {Object.values(tweetsFromUser).length > 0 ? (
+            Object.values(tweetsFromUser).map((element, i) => {
+              if (element.id === -1 && i == 0) {
+                return <SpinnerJustKF></SpinnerJustKF>;
+              } else if (element.id !== -1) {
+                return (
+                  <MeowListItem
+                    tweetByID={element}
+                    key={element.id}
+                  ></MeowListItem>
+                );
+              }
+            })
+          ) : (
+            <SpinnerJustKF></SpinnerJustKF>
+          )}
         </MainSection>
       )}
     </Wrapper>

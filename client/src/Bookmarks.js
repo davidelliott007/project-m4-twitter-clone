@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import Sidebar from "./SideBar";
 
-function Notifications(props) {
+function Bookmarks(props) {
   return (
     <Wrapper>
       <Sidebar></Sidebar>
 
-      <MainSection>Notifications</MainSection>
+      <MainSection>Bookmarks</MainSection>
     </Wrapper>
   );
 }
@@ -18,4 +18,4 @@ const Wrapper = styled.div`
 `;
 const MainSection = styled.div``;
 
-export default Notifications;
+export default Bookmarks;
