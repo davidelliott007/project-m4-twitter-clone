@@ -11,15 +11,23 @@ export const CurrentUserContextProvider = ({ children }) => {
     let myPromise = new Promise((resolve, reject) => {
       const apiUrl = "http://localhost:3000/api/me/profile";
       fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("getMyProfilePromise returned this is your data", data);
-          profileObject = data;
+        .then((response) => {
+          if (response.status === 500) {
+            console.log("error 500 ");
+            resolve("error 500");
+          } else {
+            let data = response.json();
+            console.log("getMyProfilePromise returned this is your data", data);
+            profileObject = data;
 
-          resolve(data);
+            resolve(data);
+          }
         })
         .catch((error) => {
-          reject(error);
+          console.log("erorrrrrr");
+          console.log(error.status);
+
+          resolve({ error });
         });
     });
     return myPromise;

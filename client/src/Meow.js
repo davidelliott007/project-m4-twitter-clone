@@ -69,10 +69,10 @@ function Meow(props) {
         <DateSection>{tweetTimeStamp}</DateSection>
         <Seperator />
         <TweetButtons>
-          <FiMessageCircle />
-          <FiRepeat />
-          <FiHeart></FiHeart>
-          <FiUpload></FiUpload>
+          <FiMessageCircle tabIndex="0" />
+          <FiRepeat tabIndex="0" />
+          <FiHeart tabIndex="0"></FiHeart>
+          <FiUpload tabIndex="0"></FiUpload>
         </TweetButtons>
       </TweetSection>
     </Wrapper>

@@ -138,7 +138,7 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
           <AuthorImg src={authorImg} alt="authorImg Image" />
 
           <AuthorNameHandle onClick={goToProfile}>
-            <Name>{author}</Name>
+            <Name tabIndex="0">{author}</Name>
             <Handle>@{handle}</Handle>
           </AuthorNameHandle>
         </Author>
@@ -151,12 +151,22 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
           <MeowButton>
             <CustomFiMessageCircle />
           </MeowButton>
-          <MeowButton onClick={toggleReTweeted}>
-            {isRetweeted ? <HighlightedFiRepeat /> : <FiRepeat />} {numRetweets}
-          </MeowButton>
-          <MeowButton onClick={toggleLiked}>
-            {isLiked ? <FilledFiHeart /> : <FiHeart />} {numLikes}
-          </MeowButton>
+          <ButtonAndValue>
+            <MeowButton onClick={toggleReTweeted}>
+              {isARetweet ? <HighlightedFiRepeat /> : <FiRepeat />}
+            </MeowButton>
+            {isARetweet ? (
+              <ReTweetsNumHighlighted>{numRetweets}</ReTweetsNumHighlighted>
+            ) : (
+              <ReTweetsNum>{numRetweets}</ReTweetsNum>
+            )}
+          </ButtonAndValue>
+          <ButtonAndValue>
+            <MeowButton onClick={toggleLiked}>
+              {isLiked ? <FilledFiHeart /> : <FiHeart />}
+            </MeowButton>
+            {numLikes}
+          </ButtonAndValue>
           <MeowButton>
             <FiUpload />
           </MeowButton>
@@ -191,34 +201,47 @@ height: 20px; */
   /* color: red;
   
   font-weight: ${(props) => (props.important ? "bold" : "normal")}; */
-`;
+
+
+
+  `;
 
 const FilledFiHeart = styled(FiHeart)`
-  /* width: 20px;,,=,,,,,,,,,,,,,,,,
-height: 20px; */h
-  fill: red;
+  fill: rgb(224, 36, 94);
   color: red;
 `;
 
 const HighlightedFiRepeat = styled(FiRepeat)`
   /* width: 20px;
 height: 20px; */
-  color: ${COLORS.primary};
+  color: green;
 `;
+
+const ReTweetsNumHighlighted = styled.span`
+  color: green;
+`;
+
+const ReTweetsNum = styled.span``;
+
+const ButtonAndValue = styled.div``;
 
 const MeowButton = styled.button`
   border-color: transparent;
   background-color: transparent;
 
   //TODO put in background hover state and focus state that is a round bg as well as cool like animations
+  width: 40px;
+  height: 40px;
 
   :focus {
     color: ${COLORS.primary};
-    border-color: transparent;
   }
 
   :hover {
     cursor: pointer;
+
+    border-radius: 70%;
+    background-color: ${COLORS.secondary};
 
     color: ${COLORS.primary};
   }

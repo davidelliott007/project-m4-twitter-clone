@@ -4,11 +4,15 @@ import Sidebar from "./SideBar";
 import { CurrentUserContext } from "./CurrentUserContext";
 import MeowListItem from "./MeowListItem";
 import { COLORS } from "./constants";
+import { ERRORCODES } from "./constants";
+import Error505 from "./Error505";
+
 import { useHistory } from "react-router-dom";
 
 let keySelectedMeowIndex = 0;
 let tweets_count = 0;
 let outside_tweets;
+let errorStaus = ERRORCODES.good;
 
 function Home() {
   const currentuserContext = React.useContext(CurrentUserContext);
@@ -143,9 +147,16 @@ function Home() {
       // TODO: question for TCs - why doesn't profile_data update from insbide an asynch function?
       let local_profile_data = await currentuserContext.getMyProfilePromise();
 
+      if (local_profile_data === "error 500") {
+        console.log("profile data is ");
+        console.log(local_profile_data);
+        errorStaus = ERRORCODES.error500;
+        setTweetsFromUser([]);
+
+        return;
+      }
+
       setProfile_data(local_profile_data);
-      // console.log("profile data is ");
-      // console.log(profile_data);
 
       // setauthorCurrentUser(profile_data.profile.author);
 
@@ -172,50 +183,57 @@ function Home() {
     window.addEventListener("keydown", keyPressHandler);
   }, []);
 
+  //TODO note for josh - is the error checking here the best way to do this?  Seems Janky
   return (
     <Wrapper>
+      {console.log(errorStaus)}
       <Sidebar></Sidebar>
-      <MainSection>
-        <HomeTitle>Home</HomeTitle>
-        <MeowComposer>
-          <AuthorAndIput>
-            <AuthorImg src={authorImg} alt="authorImg Image" />
-            <MeowComposerInput
-              type="text"
-              value={textfieldValue}
-              onChange={handleDraftMeow}
-              onClick={clearText}
-            >
-              {textfieldValue}
-            </MeowComposerInput>
-          </AuthorAndIput>
-          <CharCountAndButton>
-            <RemainingChars
-              style={{
-                color:
-                  inputCharCount <= 0
-                    ? `${COLORS.redText}`
-                    : inputCharCount <= 55
-                    ? `${COLORS.yellowText}`
-                    : `${COLORS.lightText}`,
-              }}
-            >
-              {inputCharCount}
-            </RemainingChars>
+      {errorStaus === ERRORCODES.error500 ? (
+        <Error505></Error505>
+      ) : (
+        <MainSection>
+          <HomeTitle>Home</HomeTitle>
 
-            {inputCharCount > 0 ? (
-              <MeowButton onClick={inputClick}>Meow!</MeowButton>
-            ) : (
-              <MeowButtonPassive>No Meow!</MeowButtonPassive>
-            )}
-          </CharCountAndButton>
-        </MeowComposer>
-        {Object.values(tweetsFromUser).map((element, i) => {
-          return (
-            <MeowListItem tweetByID={element} key={element.id}></MeowListItem>
-          );
-        })}
-      </MainSection>
+          <MeowComposer>
+            <AuthorAndIput>
+              <AuthorImg src={authorImg} alt="authorImg Image" />
+              <MeowComposerInput
+                type="text"
+                value={textfieldValue}
+                onChange={handleDraftMeow}
+                onClick={clearText}
+              >
+                {textfieldValue}
+              </MeowComposerInput>
+            </AuthorAndIput>
+            <CharCountAndButton>
+              <RemainingChars
+                style={{
+                  color:
+                    inputCharCount <= 0
+                      ? `${COLORS.redText}`
+                      : inputCharCount <= 55
+                      ? `${COLORS.yellowText}`
+                      : `${COLORS.lightText}`,
+                }}
+              >
+                {inputCharCount}
+              </RemainingChars>
+
+              {inputCharCount > 0 ? (
+                <MeowButton onClick={inputClick}>Meow!</MeowButton>
+              ) : (
+                <MeowButtonPassive>No Meow!</MeowButtonPassive>
+              )}
+            </CharCountAndButton>
+          </MeowComposer>
+          {Object.values(tweetsFromUser).map((element, i) => {
+            return (
+              <MeowListItem tweetByID={element} key={element.id}></MeowListItem>
+            );
+          })}
+        </MainSection>
+      )}
     </Wrapper>
   );
 }
