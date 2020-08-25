@@ -9,9 +9,12 @@ import { FiMapPin, FiCalendar } from "react-icons/fi";
 import { format } from "date-fns";
 import { useHistory } from "react-router-dom";
 import SpinnerJustKF from "./SpinnerJustKF";
+import { ERRORCODES } from "./constants";
+import Error505 from "./Error505";
 
 let keySelectedMeowIndex = 0;
 let tweets_count = 0;
+let errorStaus = ERRORCODES.good;
 
 function Profile(props) {
   const currentuserContext = React.useContext(CurrentUserContext);
@@ -95,6 +98,14 @@ function Profile(props) {
         profileID
       );
 
+      if (profile_data === "error 500") {
+        console.log("profile data is ");
+        console.log(profile_data);
+        errorStaus = ERRORCODES.error500;
+        setTweetsFromUser([]);
+        return;
+      }
+
       // console.log(profile_data);
 
       setAvatarImg(profile_data.profile.avatarSrc);
@@ -135,53 +146,59 @@ function Profile(props) {
           <SpinnerJustKF></SpinnerJustKF>
         ) : (
           <TopInterior>
-            <TopSection>
-              <Banner
-                style={{
-                  backgroundImage: "url(" + bannerImg + ")",
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                }}
-                alt="banner Image"
-              />
-              <FollowingButton>
-                {isBeingFollowedByYou ? "Following" : "Not Following"}
-              </FollowingButton>
-            </TopSection>
-            <AvatarImg src={avatarImg} alt="avatar Image" />
-            <DisplayName>{displayName}</DisplayName>
-            <HandleFollowing>
-              <Handle>@{handle}</Handle>
-              {isFollowingYou && <FollowsYou>Follows You </FollowsYou>}
-            </HandleFollowing>
-            <Bio>{bio}</Bio>
-            <LocationJoined>
-              <LocationDiv>
-                <SpacedFiMapPin />
-                {location}
-              </LocationDiv>
-              <CalendarDiv>
-                <SpacedFiCalendar />
-                {joined}
-              </CalendarDiv>
-            </LocationJoined>
-            <Followers>
-              <FollowDiv>
-                <NumFollowersDiv>{numFollowers}</NumFollowersDiv>
-                Followers
-              </FollowDiv>
-              <FollowDiv>
-                <NumFollowersDiv>{numFollowing}</NumFollowersDiv>
-                Following
-              </FollowDiv>
-            </Followers>
-            <LowerActionBar>
-              <LowerActionBarButton>Tweets</LowerActionBarButton>
-              <LowerActionBarButton>Media</LowerActionBarButton>
-              <LowerActionBarButton>Links</LowerActionBarButton>
-            </LowerActionBar>
-            <Seperator></Seperator>
+            {errorStaus === ERRORCODES.error500 ? (
+              <Error505></Error505>
+            ) : (
+              <div>
+                <TopSection>
+                  <Banner
+                    style={{
+                      backgroundImage: "url(" + bannerImg + ")",
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                    }}
+                    alt="banner Image"
+                  />
+                  <FollowingButton>
+                    {isBeingFollowedByYou ? "Following" : "Not Following"}
+                  </FollowingButton>
+                </TopSection>
+                <AvatarImg src={avatarImg} alt="avatar Image" />
+                <DisplayName>{displayName}</DisplayName>
+                <HandleFollowing>
+                  <Handle>@{handle}</Handle>
+                  {isFollowingYou && <FollowsYou>Follows You </FollowsYou>}
+                </HandleFollowing>
+                <Bio>{bio}</Bio>
+                <LocationJoined>
+                  <LocationDiv>
+                    <SpacedFiMapPin />
+                    {location}
+                  </LocationDiv>
+                  <CalendarDiv>
+                    <SpacedFiCalendar />
+                    {joined}
+                  </CalendarDiv>
+                </LocationJoined>
+                <Followers>
+                  <FollowDiv>
+                    <NumFollowersDiv>{numFollowers}</NumFollowersDiv>
+                    Followers
+                  </FollowDiv>
+                  <FollowDiv>
+                    <NumFollowersDiv>{numFollowing}</NumFollowersDiv>
+                    Following
+                  </FollowDiv>
+                </Followers>
+                <LowerActionBar>
+                  <LowerActionBarButton>Tweets</LowerActionBarButton>
+                  <LowerActionBarButton>Media</LowerActionBarButton>
+                  <LowerActionBarButton>Links</LowerActionBarButton>
+                </LowerActionBar>
+                <Seperator></Seperator>
+              </div>
+            )}
           </TopInterior>
         )}
 

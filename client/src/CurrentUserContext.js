@@ -37,10 +37,15 @@ export const CurrentUserContextProvider = ({ children }) => {
     let myPromise = new Promise((resolve, reject) => {
       const apiUrl = "http://localhost:3000/api/tweet/" + itemId;
       fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("getMeowByIDPromise returned this is your data", data);
-          resolve(data);
+        .then((response) => {
+          if (response.status === 500) {
+            console.log("error 500 ");
+            resolve("error 500");
+          } else {
+            let data = response.json();
+            console.log("getMeowByIDPromise returned this is your data", data);
+            resolve(data);
+          }
         })
         .catch((error) => {
           reject(error);
@@ -85,13 +90,18 @@ export const CurrentUserContextProvider = ({ children }) => {
     let myPromise = new Promise((resolve, reject) => {
       const apiUrl = "http://localhost:3000/api/" + handle + "/profile";
       fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(
-            "getProfileByHandlePromise returned this is your data",
-            data
-          );
-          resolve(data);
+        .then((response) => {
+          if (response.status === 500) {
+            console.log("error 500 ");
+            resolve("error 500");
+          } else {
+            let data = response.json();
+            console.log(
+              "getProfileByHandlePromise returned this is your data",
+              data
+            );
+            resolve(data);
+          }
         })
         .catch((error) => {
           reject(error);

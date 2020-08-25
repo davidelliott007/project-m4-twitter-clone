@@ -9,8 +9,12 @@ import {
   FiUpload,
 } from "react-icons/fi";
 import { CurrentUserContext } from "./CurrentUserContext";
+import SpinnerJustKF from "./SpinnerJustKF";
+import { ERRORCODES } from "./constants";
+import Error505 from "./Error505";
 
 import Sidebar from "./SideBar";
+let errorStaus = ERRORCODES.good;
 
 function Meow(props) {
   const currentuserContext = React.useContext(CurrentUserContext);
@@ -27,6 +31,14 @@ function Meow(props) {
   React.useEffect(() => {
     async function getMeowIDSync() {
       const data = await currentuserContext.getMeowByIDPromise(itemId);
+
+      if (data === "error 500") {
+        console.log("profile data is ");
+        errorStaus = ERRORCODES.error500;
+        setAuthor([]);
+        return;
+      }
+
       console.log("getMeowIDSync data is");
       console.log(data);
       setAuthor(data.tweet.author.displayName);
@@ -42,6 +54,8 @@ function Meow(props) {
       let date_string = date.toDateString();
       let time_string = date.toLocaleTimeString("en-US");
       let full = time_string + " - " + date_string;
+      console.log(full);
+
       setTweetTimeStamp(full);
     }
 
@@ -51,30 +65,39 @@ function Meow(props) {
   return (
     <Wrapper>
       <Sidebar></Sidebar>
-      <TweetSection>
-        <NavigationArrow>
-          <FiArrowLeft></FiArrowLeft> <MeowTitle>Meow</MeowTitle>
-        </NavigationArrow>
-        <Seperator />
-
-        <Author>
-          <AuthorImg src={authorImg} alt="authorImg Image" />
-          <AuthorNameHandle>
-            <Name>{author}</Name>
-            <Handle>@{handle}</Handle>
-          </AuthorNameHandle>
-        </Author>
-        <TweetStatus>{tweetStatus}</TweetStatus>
-        <TweetImg src={tweetImg} alt="Tweet Image" />
-        <DateSection>{tweetTimeStamp}</DateSection>
-        <Seperator />
-        <TweetButtons>
-          <FiMessageCircle tabIndex="0" />
-          <FiRepeat tabIndex="0" />
-          <FiHeart tabIndex="0"></FiHeart>
-          <FiUpload tabIndex="0"></FiUpload>
-        </TweetButtons>
-      </TweetSection>
+      {author === undefined ? (
+        <SpinnerJustKF></SpinnerJustKF>
+      ) : (
+        <div>
+          {errorStaus === ERRORCODES.error500 ? (
+            <Error505></Error505>
+          ) : (
+            <TweetSection>
+              <NavigationArrow>
+                <FiArrowLeft></FiArrowLeft> <MeowTitle>Meow</MeowTitle>
+              </NavigationArrow>
+              <Seperator />
+              <Author>
+                <AuthorImg src={authorImg} alt="authorImg Image" />
+                <AuthorNameHandle>
+                  <Name>{author}</Name>
+                  <Handle>@{handle}</Handle>
+                </AuthorNameHandle>
+              </Author>
+              <TweetStatus>{tweetStatus}</TweetStatus>
+              <TweetImg src={tweetImg} alt="Tweet Image" />
+              <DateSection>{tweetTimeStamp}</DateSection>
+              <Seperator />
+              <TweetButtons>
+                <FiMessageCircle tabIndex="0" />
+                <FiRepeat tabIndex="0" />
+                <FiHeart tabIndex="0"></FiHeart>
+                <FiUpload tabIndex="0"></FiUpload>
+              </TweetButtons>
+            </TweetSection>
+          )}
+        </div>
+      )}
     </Wrapper>
   );
 }

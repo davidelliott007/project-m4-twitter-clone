@@ -55,11 +55,15 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
     e.stopPropagation();
 
     // retweet iis a stretch goal
-    //changeReTweeted();
+    changeReTweeted();
   }
 
   function handleTweetClicked(e) {
     history.push(`/tweet/${tweetByID.id}`);
+  }
+
+  function stopPropagationButton(e) {
+    e.stopPropagation();
   }
 
   function goToProfile(e) {
@@ -86,7 +90,7 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
   React.useEffect(() => {
     setIsARetweet(false);
 
-    // console.log(tweetByID);
+    console.log(tweetByID);
 
     setAuthor(tweetByID.author.displayName);
     setHandle(tweetByID.author.handle);
@@ -108,8 +112,12 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
 
     if (tweetByID.retweetFrom !== undefined) {
       // console.log("retweetID");
-      // console.log(tweetByID);
+      console.log(tweetByID.retweetFrom);
       setIsARetweet(true);
+
+      //TODO: Retweets are just one object, should this code be setup
+      setNumRetweets(1);
+
       // console.log(tweetByID.retweetFrom);
     }
 
@@ -121,7 +129,7 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
     <div tabIndex="0" aria-label="View Tweet" aria-required="true">
       {isARetweet ? (
         <RetweetedBy>
-          <FiRepeat></FiRepeat> Remeowed {tweetByID.retweetFrom.displayName}
+          <FiRepeat></FiRepeat> Remeowed by {tweetByID.retweetFrom.displayName}
         </RetweetedBy>
       ) : (
         ""
@@ -148,7 +156,7 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
         <DateSection>{tweetTimeStamp}</DateSection>
         <Seperator />
         <TweetButtons>
-          <MeowButton>
+          <MeowButton onClick={stopPropagationButton}>
             <CustomFiMessageCircle />
           </MeowButton>
           <ButtonAndValue>
@@ -167,7 +175,7 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
             </MeowButton>
             {numLikes}
           </ButtonAndValue>
-          <MeowButton>
+          <MeowButton onClick={stopPropagationButton}>
             <FiUpload />
           </MeowButton>
         </TweetButtons>
