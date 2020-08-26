@@ -15,7 +15,7 @@ let keySelectedMeowIndex = 0;
 let tweets_count = 0;
 let outside_tweets;
 let errorStaus = ERRORCODES.good;
-
+let isTextFocused = false;
 function Home() {
   const currentuserContext = React.useContext(CurrentUserContext);
   let history = useHistory();
@@ -36,43 +36,42 @@ function Home() {
     setTextfieldValue(event.target.value);
     console.log(textfieldValue);
   }
-  function inputClick(event) {
-    console.log(textfieldValue);
+  async function postTweet() {
+    let last_tweet = tweetsFromUser[tweetsFromUser.length - 1];
+    const postedTweetConfirmation = await currentuserContext.postTweet(
+      textfieldValue,
+      last_tweet,
+      profile_data
+    );
 
-    async function postTweet() {
-      let last_tweet = tweetsFromUser[tweetsFromUser.length - 1];
-      const postedTweetConfirmation = await currentuserContext.postTweet(
-        textfieldValue,
-        last_tweet,
-        profile_data
-      );
+    const feed = await currentuserContext.getFeedByHandlePromise(
+      profile_data.profile.handle
+    );
+    // tweetsFromUser, setTweetsFromUser;
+    // tweetsFromUser;
+    // feed.tweetsById[0];
 
-      const feed = await currentuserContext.getFeedByHandlePromise(
-        profile_data.profile.handle
-      );
-      // tweetsFromUser, setTweetsFromUser;
-      // tweetsFromUser;
-      // feed.tweetsById[0];
-
-      console.log(feed.tweetsById[0].id);
-      console.log(postedTweetConfirmation);
-      // if feed.tweetsById[0]
-      if (feed.tweetsById[0].id === postedTweetConfirmation.tweet.id) {
-        setTweetsFromUser(feed.tweetsById);
-      }
-
-      //setTweetsFromUser({});
-
-      // // ok so we basically have to build a valid tweet from
-
-      // let mushed_tweets = { ...postedTweetConfirmation, ...tweetsFromUser };
-
-      // console.log("mushed_tweets");
-
-      // console.log(mushed_tweets);
-
-      // setTweetsFromUser(mushed_tweets);
+    console.log(feed.tweetsById[0].id);
+    console.log(postedTweetConfirmation);
+    // if feed.tweetsById[0]
+    if (feed.tweetsById[0].id === postedTweetConfirmation.tweet.id) {
+      setTweetsFromUser(feed.tweetsById);
     }
+
+    //setTweetsFromUser({});
+
+    // // ok so we basically have to build a valid tweet from
+
+    // let mushed_tweets = { ...postedTweetConfirmation, ...tweetsFromUser };
+
+    // console.log("mushed_tweets");
+
+    // console.log(mushed_tweets);
+
+    // setTweetsFromUser(mushed_tweets);
+  }
+  function inputClick() {
+    console.log(textfieldValue);
 
     if (inputCharCount > 0) {
       console.log("inputCharCount");
@@ -93,7 +92,9 @@ function Home() {
   }
 
   function clearText(event) {
-    setTextfieldValue("");
+    if (textfieldValue === "What's meowing?") {
+      setTextfieldValue("");
+    }
   }
 
   function highLightTweet() {
@@ -120,7 +121,9 @@ function Home() {
   function keyPressHandler(event) {
     switch (event.key) {
       case "Enter": {
-        loadTweet(event.target);
+        if (isTextFocused === false) {
+          loadTweet(event.target);
+        }
         //selectBook();
         // handleSelect(ev.target.value);
 
@@ -150,6 +153,15 @@ function Home() {
         // clear();
       }
     }
+  }
+
+  function textFocused(event) {
+    console.log(event);
+    isTextFocused = true;
+  }
+
+  function textBlurred(event) {
+    isTextFocused = false;
   }
 
   React.useEffect(() => {
@@ -219,6 +231,8 @@ function Home() {
                   value={textfieldValue}
                   onChange={handleDraftMeow}
                   onClick={clearText}
+                  onFocus={textFocused}
+                  onBlur={textBlurred}
                 >
                   {textfieldValue}
                 </MeowComposerInput>
