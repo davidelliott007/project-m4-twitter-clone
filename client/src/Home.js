@@ -34,7 +34,6 @@ function Home() {
     setInputCharCount(maxCharCount - event.target.value.length);
 
     setTextfieldValue(event.target.value);
-    console.log(textfieldValue);
   }
   async function postTweet() {
     let last_tweet = tweetsFromUser[tweetsFromUser.length - 1];
@@ -51,8 +50,6 @@ function Home() {
     // tweetsFromUser;
     // feed.tweetsById[0];
 
-    console.log(feed.tweetsById[0].id);
-    console.log(postedTweetConfirmation);
     // if feed.tweetsById[0]
     if (feed.tweetsById[0].id === postedTweetConfirmation.tweet.id) {
       setTweetsFromUser(feed.tweetsById);
@@ -64,24 +61,15 @@ function Home() {
 
     // let mushed_tweets = { ...postedTweetConfirmation, ...tweetsFromUser };
 
-    // console.log("mushed_tweets");
-
-    // console.log(mushed_tweets);
-
     // setTweetsFromUser(mushed_tweets);
   }
   function inputClick() {
-    console.log(textfieldValue);
-
     if (inputCharCount > 0) {
-      console.log("inputCharCount");
-      // console.log(tweetsFromUser[0]);
       let temp = tweetsFromUser[0];
       temp.status = "//////loading";
       temp.id = -1;
       let temps = outside_tweets;
       temps.unshift(temp);
-      console.log(temps);
       setTweetsFromUser(temps);
 
       // const [tweetsFromUser, setTweetsFromUser] = React.useState([]);
@@ -111,10 +99,8 @@ function Home() {
   }
 
   function loadTweet(event) {
-    console.log("load tweet");
     let currently_selected = outside_tweets[keySelectedMeowIndex];
 
-    console.log(currently_selected);
     history.push(`/tweet/${currently_selected.id}`);
   }
 
@@ -134,7 +120,6 @@ function Home() {
         if (keySelectedMeowIndex < 0) {
           keySelectedMeowIndex = 0;
         }
-        console.log(keySelectedMeowIndex);
 
         highLightTweet();
         return;
@@ -144,7 +129,6 @@ function Home() {
         if (keySelectedMeowIndex > tweets_count) {
           keySelectedMeowIndex = tweets_count;
         }
-        console.log(keySelectedMeowIndex);
         highLightTweet();
 
         return;
@@ -156,7 +140,6 @@ function Home() {
   }
 
   function textFocused(event) {
-    console.log(event);
     isTextFocused = true;
   }
 
@@ -175,8 +158,6 @@ function Home() {
       let local_profile_data = await currentuserContext.getMyProfilePromise();
 
       if (local_profile_data === "error 500") {
-        console.log("profile data is ");
-        console.log(local_profile_data);
         errorStaus = ERRORCODES.error500;
         setTweetsFromUser([]);
 
@@ -194,11 +175,8 @@ function Home() {
       );
       // TODO going to make the change from object to array here, to see if that helps with refresh
 
-      console.log("first tweet");
       let test_obj = { isHighlighted: false };
       let combined = { ...feed.tweetsById[0], ...test_obj };
-      console.log(feed.tweetsById[0]);
-      console.log(combined);
 
       setTweetsFromUser(feed.tweetsById);
 
@@ -213,7 +191,6 @@ function Home() {
   //TODO note for josh - is the error checking here the best way to do this?  Seems Janky
   return (
     <Wrapper>
-      {console.log(profile_data)}
       <Sidebar></Sidebar>
       {errorStaus === ERRORCODES.error500 ? (
         <Error505></Error505>

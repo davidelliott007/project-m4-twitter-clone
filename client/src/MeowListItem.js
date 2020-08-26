@@ -32,14 +32,11 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
   }
 
   function toggleReTweeted(e) {
-    // console.log(tweetByID);
-
     async function changeReTweeted() {
       const data = await currentuserContext.putRetweetByID(
         tweetByID.id,
         isRetweeted
       );
-      // console.log(data);
 
       if (data.success) {
         if (isRetweeted === true) {
@@ -67,7 +64,6 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
   }
 
   function goToProfile(e) {
-    console.log(tweetByID);
     e.stopPropagation();
     history.push(`/${tweetByID.author.handle}`);
 
@@ -90,8 +86,6 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
   React.useEffect(() => {
     setIsARetweet(false);
 
-    console.log(tweetByID);
-
     setAuthor(tweetByID.author.displayName);
     setHandle(tweetByID.author.handle);
     if (tweetByID.media[0] !== undefined) {
@@ -111,18 +105,11 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
     setNumRetweets(tweetByID.numRetweets);
 
     if (tweetByID.retweetFrom !== undefined) {
-      // console.log("retweetID");
-      console.log(tweetByID.retweetFrom);
       setIsARetweet(true);
 
       //TODO: Retweets are just one object, should this code be setup
       setNumRetweets(1);
-
-      // console.log(tweetByID.retweetFrom);
     }
-
-    // console.log(isLiked);
-    // console.log(tweetByID.isLiked);
   }, []);
 
   return (
@@ -203,16 +190,14 @@ const RetweetedBy = styled.div`
 `;
 
 const CustomFiMessageCircle = styled(FiMessageCircle)`
-/* width: 20px;
+  /* width: 20px;
 height: 20px; */
 
   /* color: red;
   
-  font-weight: ${(props) => (props.important ? "bold" : "normal")}; */
-
-
-
-  `;
+  font-weight: ${(props) =>
+    props.important ? "bold" : "normal"}; */
+`;
 
 const FilledFiHeart = styled(FiHeart)`
   fill: rgb(224, 36, 94);

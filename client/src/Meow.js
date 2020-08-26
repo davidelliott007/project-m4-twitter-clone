@@ -33,14 +33,11 @@ function Meow(props) {
       const data = await currentuserContext.getMeowByIDPromise(itemId);
 
       if (data === "error 500") {
-        console.log("profile data is ");
         errorStaus = ERRORCODES.error500;
         setAuthor([]);
         return;
       }
 
-      console.log("getMeowIDSync data is");
-      console.log(data);
       setAuthor(data.tweet.author.displayName);
       setHandle(data.tweet.author.handle);
 
@@ -54,7 +51,6 @@ function Meow(props) {
       let date_string = date.toDateString();
       let time_string = date.toLocaleTimeString("en-US");
       let full = time_string + " - " + date_string;
-      console.log(full);
 
       setTweetTimeStamp(full);
     }

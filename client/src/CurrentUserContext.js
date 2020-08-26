@@ -13,20 +13,15 @@ export const CurrentUserContextProvider = ({ children }) => {
       fetch(apiUrl)
         .then((response) => {
           if (response.status === 500) {
-            console.log("error 500 ");
             resolve("error 500");
           } else {
             let data = response.json();
-            console.log("getMyProfilePromise returned this is your data", data);
             profileObject = data;
 
             resolve(data);
           }
         })
         .catch((error) => {
-          console.log("erorrrrrr");
-          console.log(error.status);
-
           resolve({ error });
         });
     });
@@ -39,11 +34,9 @@ export const CurrentUserContextProvider = ({ children }) => {
       fetch(apiUrl)
         .then((response) => {
           if (response.status === 500) {
-            console.log("error 500 ");
             resolve("error 500");
           } else {
             let data = response.json();
-            console.log("getMeowByIDPromise returned this is your data", data);
             resolve(data);
           }
         })
@@ -60,15 +53,9 @@ export const CurrentUserContextProvider = ({ children }) => {
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-          console.log(
-            "getFeedByHandlePromise returned this is your data",
-            data
-          );
-
           let sorted_tweets = Object.values(data.tweetsById).sort((a, b) =>
             a.timestamp > b.timestamp ? -1 : b.timestamp > a.timestamp ? 1 : 0
           );
-          console.log("sorted_tweets ", sorted_tweets);
           sorted_tweets = sorted_tweets.map((element, i) => {
             let test_obj = { isHighlighted: false };
             return { ...element, ...test_obj };
@@ -92,14 +79,9 @@ export const CurrentUserContextProvider = ({ children }) => {
       fetch(apiUrl)
         .then((response) => {
           if (response.status === 500) {
-            console.log("error 500 ");
             resolve("error 500");
           } else {
             let data = response.json();
-            console.log(
-              "getProfileByHandlePromise returned this is your data",
-              data
-            );
             resolve(data);
           }
         })
@@ -166,32 +148,6 @@ export const CurrentUserContextProvider = ({ children }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          //let getFeedByHandlePromise
-
-          // console.log("------------------");
-
-          // console.log("profileData");
-
-          // console.log(profileData);
-
-          // let feed = getFeedByHandlePromise(profileData.profile.handle);
-          // console.log(feed);
-
-          // var new_tweet = lastTweet;
-
-          // new_tweet.numLikes = 0;
-          // new_tweet.numRetweets = 0;
-          // new_tweet.retweetFrom = {};
-          // new_tweet.status = data.tweet.status;
-          // new_tweet.id = data.tweet.id;
-          // new_tweet.timestamp = data.tweet.timestamp;
-          // new_tweet.media = data.tweet.media;
-
-          // console.log("data");
-
-          // console.log(data);
-          // console.log("------------------");
-
           resolve(data);
         })
         .catch((error) => {
@@ -208,7 +164,6 @@ export const CurrentUserContextProvider = ({ children }) => {
       .then((data) => {
         setCurrentUser(data.profile.handle);
 
-        console.log("This is your data", data);
         return data.profile.handle;
       });
   };

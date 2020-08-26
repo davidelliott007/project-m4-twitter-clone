@@ -49,10 +49,8 @@ function Profile(props) {
   }
 
   function loadTweet(event) {
-    console.log("laod tweet");
     let currently_selected = outside_tweets[keySelectedMeowIndex];
 
-    console.log(currently_selected);
     history.push(`/tweet/${currently_selected.id}`);
   }
 
@@ -69,7 +67,6 @@ function Profile(props) {
         if (keySelectedMeowIndex < 0) {
           keySelectedMeowIndex = 0;
         }
-        console.log(keySelectedMeowIndex);
 
         highLightTweet();
         return;
@@ -79,7 +76,6 @@ function Profile(props) {
         if (keySelectedMeowIndex > tweets_count) {
           keySelectedMeowIndex = tweets_count;
         }
-        console.log(keySelectedMeowIndex);
         highLightTweet();
 
         return;
@@ -91,22 +87,16 @@ function Profile(props) {
   }
 
   React.useEffect(() => {
-    // console.log(profileID);
-
     async function getMeowsFromUser() {
       const profile_data = await currentuserContext.getProfileByHandlePromise(
         profileID
       );
 
       if (profile_data === "error 500") {
-        console.log("profile data is ");
-        console.log(profile_data);
         errorStaus = ERRORCODES.error500;
         setTweetsFromUser([]);
         return;
       }
-
-      // console.log(profile_data);
 
       setAvatarImg(profile_data.profile.avatarSrc);
       setBannerImg(profile_data.profile.bannerSrc);
@@ -124,7 +114,6 @@ function Profile(props) {
       setNumFollowing(profile_data.profile.numFollowing);
       setBio(profile_data.profile.bio);
       setIsBeingFollowedByYou(profile_data.profile.isBeingFollowedByYou);
-      // console.log(profile_data);
       const feed = await currentuserContext.getFeedByHandlePromise(
         profile_data.profile.handle
       );
@@ -249,14 +238,16 @@ const SpacedFiMapPin = styled(FiMapPin)`
   margin-right: 5px;
   /* color: red;
   
-  font-weight: ${(props) => (props.important ? "bold" : "normal")}; */
+  font-weight: ${(props) =>
+    props.important ? "bold" : "normal"}; */
 `;
 
 const SpacedFiCalendar = styled(FiCalendar)`
   margin-right: 5px;
   /* color: red;
   
-  font-weight: ${(props) => (props.important ? "bold" : "normal")}; */
+  font-weight: ${(props) =>
+    props.important ? "bold" : "normal"}; */
 `;
 
 const NumFollowersDiv = styled.div`
