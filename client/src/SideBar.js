@@ -6,8 +6,6 @@ import { COLORS } from "./constants";
 
 import { FiHome, FiUser, FiBell, FiBookmark } from "react-icons/fi";
 
-// TODO PUT IN THE DYSLEIXC FONT
-
 function Sidebar(props) {
   return (
     <Wrapper>

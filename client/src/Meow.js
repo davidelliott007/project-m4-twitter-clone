@@ -8,10 +8,12 @@ import {
   FiHeart,
   FiUpload,
 } from "react-icons/fi";
+
 import { CurrentUserContext } from "./CurrentUserContext";
 import SpinnerJustKF from "./SpinnerJustKF";
 import { ERRORCODES } from "./constants";
 import Error505 from "./Error505";
+import { COLORS } from "./constants";
 
 import Sidebar from "./SideBar";
 let errorStaus = ERRORCODES.good;
@@ -27,8 +29,59 @@ function Meow(props) {
   const [tweetImg, settweetImg] = React.useState();
   const [tweetStatus, setTweetStatus] = React.useState();
   const [tweetTimeStamp, setTweetTimeStamp] = React.useState();
+  const [isARetweet, setIsARetweet] = React.useState();
+  const [isLiked, setIsLiked] = React.useState();
+  const [isRetweeted, setIsRetweeted] = React.useState();
+  const [numLikes, setNumLikes] = React.useState();
+  const [numRetweets, setNumRetweets] = React.useState();
+  const [tweet, setTweet] = React.useState();
+
+  function stopPropagationButton(e) {
+    e.stopPropagation();
+  }
+
+  function toggleReTweeted(e) {
+    async function changeReTweeted() {
+      const data = await currentuserContext.putRetweetByID(itemId, isRetweeted);
+
+      if (data.success) {
+        if (isRetweeted === true) {
+          setNumRetweets(numRetweets - 1);
+          setIsRetweeted(false);
+        }
+        if (isRetweeted === false) {
+          setNumRetweets(numRetweets + 1);
+          setIsRetweeted(true);
+        }
+      }
+    }
+    e.stopPropagation();
+
+    // retweet iis a stretch goal
+    //changeReTweeted();
+  }
+
+  function toggleLiked(e) {
+    async function changeTweetLiked() {
+      const data = await currentuserContext.putLikeTweetByID(itemId, isLiked);
+      if (data.success) {
+        if (isLiked === true) {
+          setNumLikes(numLikes - 1);
+          setIsLiked(false);
+        }
+        if (isLiked === false) {
+          setNumLikes(numLikes + 1);
+          setIsLiked(true);
+        }
+      }
+    }
+    e.stopPropagation();
+    changeTweetLiked();
+  }
 
   React.useEffect(() => {
+    setIsARetweet(false);
+
     async function getMeowIDSync() {
       const data = await currentuserContext.getMeowByIDPromise(itemId);
 
@@ -37,6 +90,8 @@ function Meow(props) {
         setAuthor([]);
         return;
       }
+
+      setTweet(data.tweet);
 
       setAuthor(data.tweet.author.displayName);
       setHandle(data.tweet.author.handle);
@@ -52,7 +107,20 @@ function Meow(props) {
       let time_string = date.toLocaleTimeString("en-US");
       let full = time_string + " - " + date_string;
 
+      setIsLiked(data.tweet.isLiked);
+      setIsRetweeted(data.tweet.isRetweeted);
+
+      setNumLikes(data.tweet.numLikes);
+      setNumRetweets(data.tweet.numRetweets);
+
       setTweetTimeStamp(full);
+
+      if (data.tweet.retweetFrom !== undefined) {
+        setIsARetweet(true);
+
+        //TODO: Retweets are just one object, should this code be setup
+        setNumRetweets(1);
+      }
     }
 
     getMeowIDSync();
@@ -85,11 +153,31 @@ function Meow(props) {
               <DateSection>{tweetTimeStamp}</DateSection>
               <Seperator />
               <TweetButtons>
-                <FiMessageCircle tabIndex="0" />
-                <FiRepeat tabIndex="0" />
-                <FiHeart tabIndex="0"></FiHeart>
-                <FiUpload tabIndex="0"></FiUpload>
-              </TweetButtons>
+                <MeowButton onClick={stopPropagationButton}>
+                  <CustomFiMessageCircle />
+                </MeowButton>
+                <ButtonAndValue>
+                  <MeowButton onClick={toggleReTweeted}>
+                    {isARetweet ? <HighlightedFiRepeat /> : <FiRepeat />}
+                  </MeowButton>
+                  {isARetweet ? (
+                    <ReTweetsNumHighlighted>
+                      {numRetweets}
+                    </ReTweetsNumHighlighted>
+                  ) : (
+                    <ReTweetsNum>{numRetweets}</ReTweetsNum>
+                  )}
+                </ButtonAndValue>
+                <ButtonAndValue>
+                  <MeowButton onClick={toggleLiked}>
+                    {isLiked ? <FilledFiHeart /> : <FiHeart />}
+                  </MeowButton>
+                  {numLikes}
+                </ButtonAndValue>
+                <MeowButton onClick={stopPropagationButton}>
+                  <FiUpload />
+                </MeowButton>
+              </TweetButtons>{" "}
             </TweetSection>
           )}
         </div>
@@ -181,6 +269,61 @@ const DateSection = styled.div`
   color: gray;
   font-size: 13px;
   padding-top: 10px;
+`;
+
+const RetweetedBy = styled.div`
+  font-style: Italic;
+  color: ${COLORS.lightText};
+`;
+
+const CustomFiMessageCircle = styled(FiMessageCircle)`
+  /* width: 20px;
+height: 20px; */
+
+  /* color: red;
+  
+  font-weight: ${(props) =>
+    props.important ? "bold" : "normal"}; */
+`;
+
+const FilledFiHeart = styled(FiHeart)`
+  fill: rgb(224, 36, 94);
+  color: red;
+`;
+
+const HighlightedFiRepeat = styled(FiRepeat)`
+  /* width: 20px;
+height: 20px; */
+  color: green;
+`;
+
+const ReTweetsNumHighlighted = styled.span`
+  color: green;
+`;
+
+const ReTweetsNum = styled.span``;
+
+const ButtonAndValue = styled.div``;
+
+const MeowButton = styled.button`
+  border-color: transparent;
+  background-color: transparent;
+
+  width: 40px;
+  height: 40px;
+
+  :focus {
+    color: ${COLORS.primary};
+  }
+
+  :hover {
+    cursor: pointer;
+
+    border-radius: 70%;
+    background-color: ${COLORS.secondary};
+
+    color: ${COLORS.primary};
+  }
 `;
 
 export default Meow;

@@ -52,7 +52,7 @@ function MeowListItem({ tweetByID, authorCurrentUser, isSelected }) {
     e.stopPropagation();
 
     // retweet iis a stretch goal
-    changeReTweeted();
+    //changeReTweeted();
   }
 
   function handleTweetClicked(e) {
@@ -222,7 +222,6 @@ const MeowButton = styled.button`
   border-color: transparent;
   background-color: transparent;
 
-  //TODO put in background hover state and focus state that is a round bg as well as cool like animations
   width: 40px;
   height: 40px;
 
